@@ -28,6 +28,9 @@ public class Game : MonoBehaviour
     void Start() {
         _map.generateMaze();
 
+        _player.name = "Player0";
+        _player.reset();
+
         for (int i = 1; i < 4; i++)
         {
             Player player = GameObject.Instantiate(_player, transform.GetChild(1));
@@ -36,12 +39,11 @@ public class Game : MonoBehaviour
             player.index = i;
             player.reset();
         }
-        
-        _player.name = "Player0";
     }
 
     void Update () {
         time += Time.deltaTime;
+        _checkEndGame();
     }
     
     public void create(string id, int seed) {
