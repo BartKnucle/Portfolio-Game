@@ -1,2 +1,2 @@
 # Portfolio-Game
-A samble game for my portfolio
+A sample game for my portfolio.
