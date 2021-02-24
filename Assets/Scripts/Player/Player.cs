@@ -114,11 +114,11 @@ public class Player : MonoBehaviour
                 break;
             case "left":
                 //GetComponent<Rigidbody>().AddTorque(-Vector3.up * Time.deltaTime * speed * 30);
-                transform.Rotate(new Vector3(0, -Time.deltaTime * speed * 20, 0));
+                transform.Rotate(new Vector3(0, -Time.deltaTime * speed * 40, 0));
                 break;
             case "right":
                 //GetComponent<Rigidbody>().AddTorque(Vector3.up * Time.deltaTime * speed * 30);
-                transform.Rotate(new Vector3(0, Time.deltaTime * speed * 20, 0));
+                transform.Rotate(new Vector3(0, Time.deltaTime * speed * 40, 0));
                 break;
         }
 
