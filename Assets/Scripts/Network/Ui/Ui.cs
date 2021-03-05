@@ -9,11 +9,12 @@ public class Ui : MonoBehaviour
     private Text _status;
 
     public bool inTeam = false;
-    public bool bots = false;
 
     void Awake() {
+        //hideLobby();
         _status = transform.GetChild(1).GetChild(0).GetComponent<Text>(); // GameObject.Find("/UI/Status/Text").GetComponent<Text>();
     }
+
     public void setStatus(string text) {
         _status.text = text;
     }
@@ -30,9 +31,5 @@ public class Ui : MonoBehaviour
 
     public void setLobbyTeam() {
         inTeam = !inTeam;
-    }
-
-    public void setLobbyBots() {
-        bots = !bots;
     }
 }

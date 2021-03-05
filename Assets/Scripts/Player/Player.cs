@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
         // Send the new if we are ingame
         
         if (_game.ID != "") {
-            _messages.dispatch("player/position/" + _game.ID + "/" + transform.localPosition.x + "/" + transform.localPosition.z);
+            _messages.dispatch("api/player/position/" + _game.ID + "/" + transform.localPosition.x + "/" + transform.localPosition.z);
         }
     }
 
@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
 
     public void sendId() {
         // Notify the server to replace the old id by the new one;
-        _messages.dispatch("player/sendId/" + id);
+        Network.instance.send("api/player/connect/" + id);
     }
 
     public void addScore() {

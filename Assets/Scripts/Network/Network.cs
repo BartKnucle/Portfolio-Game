@@ -9,19 +9,25 @@ public class Network : MonoBehaviour
     public string server = "ws://localhost";
     public int port = 3000;
     public Queue messagesQ = new Queue();
-    private Messages _messages;
-    private Player _player;
+    //private Messages _messages;
+    //private Player _player;
 
     public WebSocket ws;
     Ui _ui;
 
     private bool _connected = false;
+    public static Network instance;
 
     void Awake() 
     {
-        _messages = transform.root.GetChild(5).GetComponent<Messages>(); //GameObject.Find("/Messages").GetComponent<Messages>();
-        _player = transform.root.GetChild(1).GetChild(0).GetComponent<Player>(); //GameObject.Find("/Area/Players/Player").GetComponent<Player>();
-        _ui = transform.root.GetChild(3).GetComponent<Ui>(); //GameObject.Find("/UI").GetComponent<Ui>();
+        if (instance) {
+          Destroy(gameObject);
+        } else {
+          instance = this;
+        }
+        //_messages = transform.root.GetChild(5).GetComponent<Messages>(); //GameObject.Find("/Messages").GetComponent<Messages>();
+        //_player = transform.root.GetChild(1).GetChild(0).GetComponent<Player>(); //GameObject.Find("/Area/Players/Player").GetComponent<Player>();
+        //_ui = transform.root.GetChild(3).GetComponent<Ui>(); //GameObject.Find("/UI").GetComponent<Ui>();
     }
     
 
@@ -56,8 +62,8 @@ public class Network : MonoBehaviour
     private void _onOpen() {
         _connected = true;
         _player.sendId();
+        //_ui.setStatus("Connected");
         _ui.showLobby();
-        _ui.setStatus("Connected");
     }
 
     private void _onClose(WebSocketCloseCode code) {
@@ -76,7 +82,7 @@ public class Network : MonoBehaviour
     }
 
     public void joinLobby() {
-        send("network/joinLobby/" +_ui.inTeam + "/" + _ui.bots );
+        send("api/lobby/join/" +_ui.inTeam);
         _ui.hideLobby();
     }
 }

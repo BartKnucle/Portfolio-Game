@@ -5,21 +5,21 @@ using UnityEngine;
 public class Messages : MonoBehaviour
 
 {
-    private Network _network;
-    private Player _player;
-    private Ui _ui;
-    private Game _game;
+    //private Network _network;
+    //private Player _player;
+    //private Ui _ui;
+    //private Game _game;
 
     void Awake() {
-        _ui = transform.root.GetChild(3).GetComponent<Ui>(); //GameObject.Find("/UI").GetComponent<Ui>();
-        _network = transform.root.GetChild(4).GetComponent<Network>(); // GameObject.Find("/Network").GetComponent<Network>();
-        _player = transform.root.GetChild(1).GetChild(0).GetComponent<Player>(); //GameObject.Find("/Area/Players/Player").GetComponent<Player>();
-        _game = transform.root.GetComponent<Game>();
+        //_ui = transform.root.GetChild(3).GetComponent<Ui>(); //GameObject.Find("/UI").GetComponent<Ui>();
+        //_network = transform.root.GetChild(4).GetComponent<Network>(); // GameObject.Find("/Network").GetComponent<Network>();
+        //_player = transform.root.GetChild(1).GetChild(0).GetComponent<Player>(); //GameObject.Find("/Area/Players/Player").GetComponent<Player>();
+        //_game = transform.root.GetComponent<Game>();
     }
 
     void Update() {
-        while(_network.messagesQ.Count != 0) {
-            dispatch((string)_network.messagesQ.Dequeue());
+        while(Network.instance.messagesQ.Count != 0) {
+            dispatch((string)Network.instance.messagesQ.Dequeue());
         }
     }
 
