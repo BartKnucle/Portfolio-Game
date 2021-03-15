@@ -26,7 +26,7 @@ public class Messages : MonoBehaviour
     public void dispatch(string msgs) {
         string[] messages = msgs.Split('/');
 
-        switch (messages[0])
+        /*switch (messages[0])
         {
             case "player":
                 switch (messages[1])
@@ -72,6 +72,6 @@ public class Messages : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
     }
 }

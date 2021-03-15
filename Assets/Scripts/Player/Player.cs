@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     public Vector4 aiDestinations = new Vector4(0, 0, 0, 0);
 
     void Awake() {
-        id = PlayerPrefs.GetString("_id");
+        /*id = PlayerPrefs.GetString("_id");
         _messages = transform.root.GetChild(5).GetComponent<Messages>(); //GameObject.Find("/Messages").GetComponent<Messages>();
         _map = transform.root.GetChild(0).GetComponent<Map>();
         _game = transform.root.GetComponent<Game>();
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
             PlayerPrefs.Save();
         } else {
             id = PlayerPrefs.GetString("user");
-        }
+        }*/
 
         //transform.GetComponent<CameraSensor>().Camera = transform.root.GetChild(6).GetChild(0).GetComponent<Camera>();
     }
@@ -136,9 +136,9 @@ public class Player : MonoBehaviour
 
         // Send the new if we are ingame
         
-        if (_game.ID != "") {
+        /*if (_game.ID != "") {
             _messages.dispatch("api/player/position/" + _game.ID + "/" + transform.localPosition.x + "/" + transform.localPosition.z);
-        }
+        }*/
     }
 
     private void _checkDestinations() {
@@ -164,29 +164,29 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void sendId() {
+    /*public void sendId() {
         // Notify the server to replace the old id by the new one;
         Network.instance.send("api/player/connect/" + id);
-    }
+    }*/
 
     public void addScore() {
         aiScore += 1;
-        Game _game = transform.root.GetComponent<Game>();
+        /*Game _game = transform.root.GetComponent<Game>();
         if (aiScore > _game.bestScore) {
             _game.bestScore = aiScore;
         }
-        _game.addScore();
+        _game.addScore();*/
         refreshScore();
     }
 
     public void rmScore() {
-        Game _game = transform.root.GetComponent<Game>();
+        /*Game _game = transform.root.GetComponent<Game>();
         if (aiScore == _game.bestScore) {
             _game.bestScore -= 1;
         }
         aiScore -= 1;
         _game.rmScore();
-        refreshScore();
+        refreshScore();*/
     }
 
     private void refreshScore() {

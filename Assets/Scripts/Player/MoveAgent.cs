@@ -40,14 +40,14 @@ public class MoveAgent : Agent
             previousScore = _player.aiScore;
         }
 
-        if (_game.totalScore == _game.maxScore && _game.totalScore != 0) {
+        /*if (_game.totalScore == _game.maxScore && _game.totalScore != 0) {
             if (_game.bestScore == _player.aiScore) {
                 AddReward(10f);
             } else {
                 AddReward(-3f);
             }
             EndEpisode();
-        }
+        }*/
     }
  
     public override void Heuristic(float[] actionsOut)
@@ -63,6 +63,6 @@ public class MoveAgent : Agent
     public override void OnEpisodeBegin()
     {
         previousScore = 0;
-        _game.reset();
+        //_game.reset();
     }
 }

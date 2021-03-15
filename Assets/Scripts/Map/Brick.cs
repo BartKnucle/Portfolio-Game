@@ -48,7 +48,7 @@ public class Brick : MonoBehaviour
 
             );
 
-            transform.root.GetComponent<Game>().maxScore += 1;
+            //transform.root.GetComponent<Game>().maxScore += 1;
             tag = "Floor";
             gameObject.layer = 13;
         }
