@@ -1,54 +1,67 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Events;
 using HybridWebSocket;
+using SimpleJSON;
 
-namespace CrazyGoat {
-    public class Connection : MonoBehaviour
-    {
-        public string server = "ws://localhost";
-        public int port = 3000;
-        WebSocket _ws;
+namespace CrazyGoat.Network {
+  [System.Serializable]
+  public class OnMsgReceive : UnityEvent<string, JSONNode>{}
+  public class Connection
+  {
+      public bool connected = false;
+      public WebSocket webSocket;
 
-        public static Connection instance;
-        void Awake() {
-            if (!instance) {
-                instance = this;
-            } else {
-                Destroy(gameObject);
-            }
+      public Double startedAt;
+      public OnMsgReceive onMsgReceive = new OnMsgReceive();
 
-            // Create the websocket
-            _ws = WebSocketFactory.CreateInstance(server + ":" + port);
-            //  Binding the events
-            _ws.OnOpen += onOpen;
-            _ws.OnClose += onClose;
-            _ws.OnMessage += onMessage;
+      public void Create (string server, int port) {
+        // Create the websocket
+        webSocket = WebSocketFactory.CreateInstance(server + ":" + port);
+        //  Binding the events
+        webSocket.OnOpen += onOpen;
+        webSocket.OnClose += onClose;
+        webSocket.OnMessage += onMessage;
+      }
+
+      public void Start() {
+        webSocket.Connect();
+      }
+
+      public void Close() {
+          if (connected) {
+            webSocket.Close();
+            connected = false;
+          }
+      }
+
+      private void onOpen() {
+        startedAt = Time.Now();
+        connected = true;
+      }
+
+      private void onClose(WebSocketCloseCode code) {
+        connected = false;
+      }
+
+      private void onMessage(byte[] msg) {
+        string strMsg = Encoding.UTF8.GetString(msg);
+        JSONNode msgObject = JSON.Parse(strMsg);
+        string service = msgObject["data"]["service"];
+        onMsgReceive.Invoke(service, msgObject);
+
+        //dynamic msgObject = JsonUtility.FromJson<dynamic>(Encoding.UTF8.GetString(msg));
+      }
+
+      private void onError(string errMsg) {
+          Debug.Log("WS error: " + errMsg);
+      }
+
+      public void Send(string data) {
+        if (connected) {
+          webSocket.Send(Encoding.UTF8.GetBytes(data));
         }
-
-        void Start() {
-            // Connecting to the server
-            _ws.Connect();
-        }
-
-        void OnApplicationQuit()
-        {
-            _ws.Close();
-        }
-
-        public void send(string msg) {
-            _ws.Send(Encoding.UTF8.GetBytes(msg));
-        }
-
-        private void onOpen() {}
-
-        private void onClose(WebSocketCloseCode code) {}
-
-        private void onMessage(byte[] msg) {}
-
-        private void onError(string errMsg) {
-            Debug.Log("WS error: " + errMsg);
-        }
-    }
+      }
+  }
 }

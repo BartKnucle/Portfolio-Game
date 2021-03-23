@@ -51,7 +51,7 @@ using CrazyGoat;
         }
 
         private void _onOpen() {
-            User.instance.sendID();
+            //User.instance.sendID();
         }
 
         private void _onClose(WebSocketCloseCode code) {}

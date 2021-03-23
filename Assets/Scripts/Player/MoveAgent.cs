@@ -8,7 +8,7 @@ public class MoveAgent : Agent
 {
     private Player _player;
     private Map _map;
-    private Game _game;
+    //private Game _game;
     EnvironmentParameters defaultParameters;
 
     public int previousScore = 0;
@@ -16,7 +16,7 @@ public class MoveAgent : Agent
     {
         _player = transform.GetComponent<Player>();
         _map = transform.root.GetChild(0).transform.GetComponent<Map>();
-        _game = transform.root.GetComponent<Game>();
+        //_game = transform.root.GetComponent<Game>();
     }
 
     public override void CollectObservations(VectorSensor sensor)

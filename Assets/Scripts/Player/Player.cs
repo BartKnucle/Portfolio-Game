@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
 
     private Messages _messages;
     private Map _map;
-    private Game _game;
+    //private Game _game;
 
     // For AI training
     public float aiStartTime = 0f;

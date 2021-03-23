@@ -2,36 +2,62 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CrazyGoat.Network;
 
 namespace CrazyGoat {
-    public class User : MonoBehaviour
+    public class User : NetMonoBehaviour
     {
-        private string _Id;
-        public string nickName = "";
         public static User instance;
-        void Awake() {
-            if (!instance) {
-                instance = this;
-            } else {
-                Destroy(gameObject);
-            }
+        public string username = "";
+        [SerializeField][HideInInspector]
+        string _id;
+        [SerializeField][HideInInspector]
+        bool _team;
 
-            // Set the user _Id
+        User() {
+          if (!instance) {
+            instance = this;
+          } else {
+              Destroy(gameObject);
+          }
+        }
+        new void Awake() {
+            //base.Awake();
             if (!PlayerPrefs.HasKey("user")) {
-                _Id = Guid.NewGuid().ToString();
-                PlayerPrefs.SetString("user", _Id);
+                _id = Guid.NewGuid().ToString();
+                PlayerPrefs.SetString("user", _id);
                 PlayerPrefs.Save();
             } else {
-                _Id = PlayerPrefs.GetString("user");
+                _id = PlayerPrefs.GetString("user");
+            }
+
+            if (PlayerPrefs.HasKey("username")) {
+                username = PlayerPrefs.GetString("username");
             }
         }
 
-        // Send the user _Id to the server
-        public void sendID () {
-            Network.instance.send("api/player/connect/" + _Id);
+        new void Start() {
+          Sync("sendId");
         }
 
-        public void setNickName() {}
+        public void setName(string username) {
+          this.username = username;
+          PlayerPrefs.SetString("username", username);
+          PlayerPrefs.Save();
+          Sync();
+        }
+
+        public void setTeam(bool team) {
+          this._team = team;
+        }
+
+        public void joinLobby() {
+          Sync("joinLobby");
+        }
+        public void quitLobby() {
+          Sync("quitLobby");
+          this.state = "";
+        }
     }
 
 }

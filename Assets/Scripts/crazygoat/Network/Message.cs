@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CrazyGoat {
+namespace CrazyGoat.Network {
     public class Message
     {
-        public void Send() {}
+      public void Send(string data) {
+        Manager.instance.connection.Send(data);
+      }
     }
 }
 
