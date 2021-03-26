@@ -4,45 +4,51 @@ using UnityEngine;
 using UnityEngine.Events;
 using HybridWebSocket;
 using SimpleJSON;
+using CrazyGoat.Variables;
+using CrazyGoat.Events;
 
 namespace CrazyGoat.Network {
   [System.Serializable]
-  public class OnMsgReceive : UnityEvent<string, JSONNode>{}
-  public class Connection
+  [CreateAssetMenu(menuName = "CrazyGoat/Network/Server")]
+  public class WsServer : ScriptableObject
   {
-      public bool connected = false;
+      public StringReference wsServer;
+      public IntReference wsServerPort;
+      public bool isConnected = false;
       public WebSocket webSocket;
 
       public Double startedAt;
-      public OnMsgReceive onMsgReceive = new OnMsgReceive();
+      public UnityEvent<string, JSONNode> onMsgReceive = new UnityEvent<string, JSONNode>();
+      public UnityEvent connected;
+      public UnityEvent disconnected;
 
-      public void Create (string server, int port) {
-        // Create the websocket
-        webSocket = WebSocketFactory.CreateInstance(server + ":" + port);
+      void OnEnable() {
+        webSocket = WebSocketFactory.CreateInstance(wsServer.Variable.Value + ":" + wsServerPort.Variable.Value);
         //  Binding the events
         webSocket.OnOpen += onOpen;
         webSocket.OnClose += onClose;
         webSocket.OnMessage += onMessage;
-      }
-
-      public void Start() {
         webSocket.Connect();
       }
 
       public void Close() {
-          if (connected) {
+          if (isConnected) {
             webSocket.Close();
-            connected = false;
+            isConnected = false;
           }
       }
 
       private void onOpen() {
         startedAt = Time.Now();
-        connected = true;
+        isConnected = true;
+        connected.Invoke();
+      	UnityMainThreadDispatcher.Instance().Enqueue(() => connected.Invoke());
       }
 
       private void onClose(WebSocketCloseCode code) {
-        connected = false;
+        isConnected = false;
+        UnityMainThreadDispatcher.Instance().Enqueue(() => disconnected.Invoke());
+        //this.serverDisconnected.Invoke();
       }
 
       private void onMessage(byte[] msg) {
@@ -59,7 +65,7 @@ namespace CrazyGoat.Network {
       }
 
       public void Send(string data) {
-        if (connected) {
+        if (isConnected) {
           webSocket.Send(Encoding.UTF8.GetBytes(data));
         }
       }

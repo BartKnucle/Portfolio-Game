@@ -3,12 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using CrazyGoat.Network;
+using CrazyGoat.Network.Variables;
 using SimpleJSON;
 
-namespace CrazyGoat {
+namespace Game
+{
+  [System.Serializable]
+  public class Player {
+  public string _id;
+  }
   public class Game : NetMonoBehaviour
   {
-      string _id;
+      [Tooltip("Game ID")]
+      public StringReference _id;
+      
+      public int seed;
+      [SerializeField]
+      List<Player> players = new List<Player>(0);
+      string _state;
       //private Map _map;
       //private Player _player;
       //public string ID = "";
@@ -24,15 +36,13 @@ namespace CrazyGoat {
 
       public static Game instance;
 
-      Game() {
+      override public void Awake() {
         if (!instance) {
             instance = this;
         } else {
             Destroy(gameObject);
         }
-      }
 
-      new void Awake() {
         base.Awake();
           //_isTraining = GameObject.Find("/IA").GetComponent<ia>().isActiveAndEnabled == true;
 
@@ -41,11 +51,30 @@ namespace CrazyGoat {
           //_player.color = Colors[0];
       }
 
+      void Update() {
+        if (_state == "created") {
+          _state = "started";
+          SceneManager.LoadSceneAsync("Game", LoadSceneMode.Single);
+        }
+      }
+
+      void create(JSONNode msgObject) {
+        foreach (JSONObject player in msgObject["data"]["players"])
+        {
+          Player newPlayer = new Player();
+          newPlayer._id = player["_id"];
+          this.players.Add(newPlayer);
+        }
+        this.seed = msgObject["data"]["seed"].AsInt;
+        _state = "created";
+      }
+
       public override void Receive(string service, JSONNode msgObject) {
         if (service == this.service) {
           switch ((string)msgObject["data"]["state"])
           {
-            case "newGame":
+            case "create":
+              create(msgObject);
               break;
           }
         }
@@ -111,5 +140,5 @@ namespace CrazyGoat {
           totalScore += 1;
           //_checkEndGame();
       }*/
-  }
+  }   
 }
