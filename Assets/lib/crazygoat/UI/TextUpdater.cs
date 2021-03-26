@@ -8,6 +8,10 @@ namespace CrazyGoat.UI
     public class TextUpdater : MonoBehaviour {
         public StringReference text;
 
+        void Start() {
+            SetText();
+        }
+
         public void SetText() {
             string test = gameObject.GetComponent<Text>().text;
             gameObject.GetComponent<Text>().text = text.Variable.Value;

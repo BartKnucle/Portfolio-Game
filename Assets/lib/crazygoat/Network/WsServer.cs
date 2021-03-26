@@ -22,18 +22,20 @@ namespace CrazyGoat.Network {
       public UnityEvent<string, JSONNode> onMsgReceive = new UnityEvent<string, JSONNode>();
 
       void OnEnable() {
+        status.Variable.Value = "Disconnected";
         webSocket = WebSocketFactory.CreateInstance(wsServer.Variable.Value + ":" + wsServerPort.Variable.Value);
         //  Binding the events
         webSocket.OnOpen += onOpen;
         webSocket.OnClose += onClose;
         webSocket.OnError += onError;
         webSocket.OnMessage += onMessage;
-        Start();
       }
 
       public void Start() {
-        status.Variable.Value = "Connecting";
-        webSocket.Connect();
+        if (status.Variable.Value == "Disconnected") {
+          status.Variable.Value = "Connecting";
+          webSocket.Connect();
+        }
       }
 
       public void Close() {

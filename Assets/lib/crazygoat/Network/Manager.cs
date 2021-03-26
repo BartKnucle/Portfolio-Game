@@ -14,19 +14,21 @@ namespace CrazyGoat.Network {
       string _currentConnectionStatus;
 
       Manager () {
-        if (!instance) {
+        if (instance == null) {
           instance = this;
-        } else {
-          Destroy(gameObject);
         }
       }
 
-      void  Update() {
-        if (_currentConnectionStatus != connectionStatus.Variable.Value) {
-          onConnectionStatusChanged.Invoke();
-          _currentConnectionStatus = connectionStatus.Variable.Value;
+      void Start() {
+        wsServer.Start();
+      }
 
-          if (_currentConnectionStatus == "Disconnected") {
+      void  Update() {
+        if (instance._currentConnectionStatus != connectionStatus.Value) {
+          onConnectionStatusChanged.Invoke();
+          instance._currentConnectionStatus = connectionStatus.Value;
+
+          if (instance._currentConnectionStatus == "Disconnected") {
             wsServer.Start();
           }
         }
