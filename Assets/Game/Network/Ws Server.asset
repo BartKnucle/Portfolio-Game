@@ -20,14 +20,11 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 0cfc495f393ac2945812dd6ee5722685, type: 2}
-  isConnected: 0
+  status:
+    UseConstant: 0
+    ConstantValue: 
+    Variable: {fileID: 11400000, guid: 55487caa168dbaf459d1a7ffecdb3b9e, type: 2}
   startedAt: 1616699538754
   onMsgReceive:
-    m_PersistentCalls:
-      m_Calls: []
-  connected:
-    m_PersistentCalls:
-      m_Calls: []
-  disconnected:
     m_PersistentCalls:
       m_Calls: []

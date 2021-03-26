@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -242,8 +242,8 @@ Canvas:
   m_GameObject: {fileID: 237366526}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 711523862}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -380,9 +380,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1242007141}
   - component: {fileID: 1242007143}
-  - component: {fileID: 1242007142}
-  - component: {fileID: 1242007144}
   - component: {fileID: 1242007145}
+  - component: {fileID: 1242007144}
+  - component: {fileID: 1242007142}
   m_Layer: 5
   m_Name: Connection Status
   m_TagString: Untagged
@@ -418,31 +418,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1242007140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f607492561370a4997421b126059f69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Connection Status
+  text:
+    UseConstant: 0
+    ConstantValue: 
+    Variable: {fileID: 11400000, guid: 55487caa168dbaf459d1a7ffecdb3b9e, type: 2}
 --- !u!222 &1242007143
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -463,20 +445,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e839e4c12473014b9b3d3faccc0f61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 7ec21a2792561be4ebfcb044f38601ce, type: 2}
+  Event: {fileID: 11400000, guid: 44891bbf3e90f1d459d300812fbc49a3, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1242007142}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-        m_MethodName: set_text
-        m_Mode: 5
+        m_TargetAssemblyTypeName: CrazyGoat.UI.TextUpdater, Assembly-CSharp
+        m_MethodName: SetText
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Connected
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1242007145
@@ -488,25 +470,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1242007140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e839e4c12473014b9b3d3faccc0f61d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 40a1253f540fd4843ac8c943b543240b, type: 2}
-  Response:
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1242007142}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-        m_MethodName: set_text
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Disconnected
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
 --- !u!1 &1618974117
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,10 +618,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wsServer: {fileID: 11400000, guid: ef3236e2f2fef4544b0343c1799f4935, type: 2}
-  onConnectionOpen:
+  onConnectionStatusChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 7ec21a2792561be4ebfcb044f38601ce, type: 2}
+      - m_Target: {fileID: 11400000, guid: 44891bbf3e90f1d459d300812fbc49a3, type: 2}
         m_TargetAssemblyTypeName: CrazyGoat.Events.GameEvent, Assembly-CSharp
         m_MethodName: Raise
         m_Mode: 1
@@ -645,6 +633,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  connectionStatus:
+    UseConstant: 0
+    ConstantValue: 
+    Variable: {fileID: 11400000, guid: 55487caa168dbaf459d1a7ffecdb3b9e, type: 2}
 --- !u!4 &1869647745
 Transform:
   m_ObjectHideFlags: 0

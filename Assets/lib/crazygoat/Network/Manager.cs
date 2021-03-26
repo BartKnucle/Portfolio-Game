@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using CrazyGoat.Variables;
 
 
 namespace CrazyGoat.Network {
@@ -7,9 +8,10 @@ namespace CrazyGoat.Network {
   {
       public static Manager instance;
       public WsServer wsServer;
-      public UnityEvent onConnectionOpen;
-      //public string server = "ws://localhost";
-      //public int port = 3000;
+      public UnityEvent onConnectionStatusChanged;
+      public StringReference connectionStatus;
+      
+      string _currentConnectionStatus;
 
       Manager () {
         if (!instance) {
@@ -19,9 +21,21 @@ namespace CrazyGoat.Network {
         }
       }
 
+      void  Update() {
+        if (_currentConnectionStatus != connectionStatus.Variable.Value) {
+          onConnectionStatusChanged.Invoke();
+          _currentConnectionStatus = connectionStatus.Variable.Value;
+
+          if (_currentConnectionStatus == "Disconnected") {
+            wsServer.Start();
+          }
+        }
+      }
+
       void OnApplicationQuit()
       {
         wsServer.Close();
+        onConnectionStatusChanged.Invoke();
       }
   }
 }
