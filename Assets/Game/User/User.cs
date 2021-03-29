@@ -1,47 +1,40 @@
 ﻿using System;
 using UnityEngine;
 using CrazyGoat.Network;
+using CrazyGoat.Variables;
 
-public class User : NetMonoBehaviour
+public class User : GenericSingletonClass<User>
 {
-    public static User instance;
-    public string username = "";
-    [SerializeField][HideInInspector]
-    string _id;
-    [SerializeField][HideInInspector]
+    public CrazyGoat.Network.Variables.StringVariable _id;
+    public CrazyGoat.Network.Variables.StringVariable nickname;
+
+    public Request setId;
+           
     bool _team;
 
     new void Awake() {
-          if (!instance) {
-          instance = this;
-        } else {
-            Destroy(gameObject);
-        }
-
         base.Awake();
-
-        if (!PlayerPrefs.HasKey("user")) {
-            _id = Guid.NewGuid().ToString();
-            PlayerPrefs.SetString("user", _id);
-            PlayerPrefs.Save();
-        } else {
-            _id = PlayerPrefs.GetString("user");
-        }
-
-        if (PlayerPrefs.HasKey("username")) {
-            username = PlayerPrefs.GetString("username");
-        }
+        setId.execute();
     }
 
     void Start() {
-      Sync("setId");
+      if (!PlayerPrefs.HasKey("user")) {
+        _id.Value = Guid.NewGuid().ToString();
+        PlayerPrefs.SetString("user", _id.Value);
+        PlayerPrefs.Save();
+      } else {
+          _id.Value = PlayerPrefs.GetString("user");
+      }
+
+      if (PlayerPrefs.HasKey("username")) {
+          nickname.Value = PlayerPrefs.GetString("username");
+      }
     }
 
-    public void setName(string username) {
-      this.username = username;
-      PlayerPrefs.SetString("username", username);
+    public void setName(string nickname) {
+      this.nickname.Value = nickname;
+      PlayerPrefs.SetString("username", nickname);
       PlayerPrefs.Save();
-      Sync();
     }
 
     public void setTeam(bool team) {
@@ -49,9 +42,9 @@ public class User : NetMonoBehaviour
     }
 
     public void joinLobby() {
-      Sync("joinLobby");
+      //Sync("joinLobby");
     }
     public void quitLobby() {
-      Sync("quitLobby");
+      //Sync("quitLobby");
     }
 }

@@ -6,7 +6,7 @@ namespace CrazyGoat.Network {
     public class Message
     {
       public void Send(string data) {
-        Manager.Instance.Send(data);
+        Manager.Instance.messages.Enqueue(data);
       }
     }
 }

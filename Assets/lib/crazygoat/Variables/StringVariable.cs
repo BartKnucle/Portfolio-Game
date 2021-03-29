@@ -9,16 +9,16 @@ namespace CrazyGoat.Variables
         [Multiline]
         public string DeveloperDescription = "";
 #endif
-        public string Value;
-
-        public void SetValue(string value)
+        private string value;
+        public string Value
         {
-            Value = value;
+          get { return value; }   // get method
+          set { SetValue(value); }  // set method
         }
 
-        public void SetValue(StringVariable value)
+        virtual public void SetValue(string value)
         {
-            Value = value.Value;
+            this.value = value;
         }
     }
 }

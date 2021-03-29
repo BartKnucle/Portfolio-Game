@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f23bdff04c1c754e965090c7d9f5e2e, type: 3}
   m_Name: _id
   m_EditorClassIdentifier: 
-  DeveloperDescription: 
-  Value: 
+  DeveloperDescription: User ID from the "Users" service
+  autoSend: 0
+  service: {fileID: 11400000, guid: d82de6464d61beb49b1aa87af868d353, type: 2}

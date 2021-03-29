@@ -524,6 +524,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
         type: 3}
+      propertyPath: status
+      value: 
+      objectReference: {fileID: 11400000, guid: 55487caa168dbaf459d1a7ffecdb3b9e,
+        type: 2}
+    - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
+        type: 3}
+      propertyPath: services
+      value: 
+      objectReference: {fileID: 11400000, guid: 68868de137642184fb52df61b3478ea8,
+        type: 2}
+    - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
+        type: 3}
       propertyPath: onStatusChanged
       value: 
       objectReference: {fileID: 11400000, guid: 44891bbf3e90f1d459d300812fbc49a3,
@@ -539,6 +551,17 @@ PrefabInstance:
       propertyPath: status.UseConstant
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
+        type: 3}
+      propertyPath: services.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
+        type: 3}
+      propertyPath: services.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: d82de6464d61beb49b1aa87af868d353,
+        type: 2}
     - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
         type: 3}
       propertyPath: onConnectionStatusChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target

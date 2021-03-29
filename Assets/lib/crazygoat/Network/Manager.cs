@@ -12,11 +12,13 @@ namespace CrazyGoat.Network {
   {
       //public static Manager instance;
       public WsServer wsServer;
+      public List<Service> services;
       public WebSocket webSocket;
       public GameEvent onStatusChanged;
-      public StringReference status;
+      public StringVariable status;
       public Double startedAt;
       Queue<Action> jobs = new Queue<Action>();
+      public Queue<String> messages = new Queue<String>();
 
       internal void AddJob(Action newJob) {
         jobs.Enqueue(newJob);
@@ -24,7 +26,7 @@ namespace CrazyGoat.Network {
 
       public override void Awake() {
         base.Awake();
-        status.Variable.Value = "Disconnected";
+        //status.Value = "Disconnected";
         webSocket = WebSocketFactory.CreateInstance(wsServer.address.Value + ":" + wsServer.port.Value);
         //  Binding the events
         webSocket.OnOpen += onConnectionOpen;
@@ -34,25 +36,27 @@ namespace CrazyGoat.Network {
       }
 
       void Start() {
-        if (status.Variable.Value == "Disconnected") {
-          webSocket.Connect();
-        }
+        webSocket.Connect();
       }
 
       void Update() {
         while (jobs.Count > 0) 
             jobs.Dequeue().Invoke();
-      }
 
-      public void Send(string data) {
-        if (status.Variable.Value == "Connected")
-        {
-          webSocket.Send(Encoding.UTF8.GetBytes(data));
+        if (status.Value == "Connected") {
+          while (messages.Count > 0) 
+          {
+            Send(messages.Dequeue());
+          }
         }
       }
 
+      private void Send(string data) {
+          webSocket.Send(Encoding.UTF8.GetBytes(data));
+      }
+
       void changeStatus(string status) {
-        this.status.Variable.Value = status;
+        this.status.Value = status;
         jobs.Enqueue(onStatusChanged.Raise);
       }
 
@@ -81,9 +85,10 @@ namespace CrazyGoat.Network {
       
       void OnApplicationQuit()
       {
-        if (status.Variable.Value == "Connected") {
+        webSocket.Close();
+        /**if (status.Value == "Connected") {
           webSocket.Close();
-        }
+        }*/
       }
   }
 }
