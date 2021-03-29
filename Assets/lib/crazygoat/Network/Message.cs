@@ -6,7 +6,7 @@ namespace CrazyGoat.Network {
     public class Message
     {
       public void Send(string data) {
-        Manager.instance.wsServer.Send(data);
+        Manager.Instance.wsServer.Send(data);
       }
     }
 }

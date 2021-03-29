@@ -4,16 +4,19 @@ using UnityEngine.SceneManagement;
 using CrazyGoat.Variables;
 using CrazyGoat.Events;
 
-public class GameState : MonoBehaviour
+public class GameState : GenericSingletonClass<MonoBehaviour>
 {
-    public static GameState instance;
+    //public static GameState instance;
     public StringReference connectionStatus;
 
-    GameState() {
-        if (instance == null) {
-            instance = this;
-        }
-    }
+    /*GameState() {
+      if (instance != null) {
+        Destroy(gameObject);
+      } else {
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+      }
+    }*/
 
     public void onConnectionChanged() {
         switch (connectionStatus.Value)
