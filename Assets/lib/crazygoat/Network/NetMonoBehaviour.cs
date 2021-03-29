@@ -10,7 +10,7 @@ namespace CrazyGoat.Network
     public string service = "";
 
     virtual public void Awake() {
-      Manager.Instance.wsServer.onMsgReceive.AddListener(Receive);
+      //Manager.Instance.wsServer.onMsgReceive.AddListener(Receive);
     }
 
     virtual public void Receive(string service, JSONNode msgObject) {}

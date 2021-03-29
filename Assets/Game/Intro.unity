@@ -524,6 +524,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
         type: 3}
+      propertyPath: onStatusChanged
+      value: 
+      objectReference: {fileID: 11400000, guid: 44891bbf3e90f1d459d300812fbc49a3,
+        type: 2}
+    - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
+        type: 3}
+      propertyPath: status.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 55487caa168dbaf459d1a7ffecdb3b9e,
+        type: 2}
+    - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
+        type: 3}
+      propertyPath: status.UseConstant
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
+        type: 3}
       propertyPath: onConnectionStatusChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 11400000, guid: 44891bbf3e90f1d459d300812fbc49a3,
@@ -614,10 +631,10 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1242007145}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-        m_MethodName: set_text
-        m_Mode: 0
+      - m_Target: {fileID: 1242007142}
+        m_TargetAssemblyTypeName: CrazyGoat.UI.TextUpdater, Assembly-CSharp
+        m_MethodName: SetText
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

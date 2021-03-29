@@ -12,34 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92cc3ad90ce7e140ae8bdab0ee383d8, type: 3}
   m_Name: Ws Server
   m_EditorClassIdentifier: 
-  wsServer:
-    UseConstant: 0
-    ConstantValue: 
-    Variable: {fileID: 11400000, guid: 3a5e27bdf64ca8147bee8fed0feacd8d, type: 2}
-  wsServerPort:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 0cfc495f393ac2945812dd6ee5722685, type: 2}
-  status:
-    UseConstant: 0
-    ConstantValue: 
-    Variable: {fileID: 11400000, guid: 55487caa168dbaf459d1a7ffecdb3b9e, type: 2}
-  startedAt: 1617006601764
-  onConnectionStatusChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 44891bbf3e90f1d459d300812fbc49a3, type: 2}
-        m_TargetAssemblyTypeName: CrazyGoat.Events.GameEvent, Assembly-CSharp
-        m_MethodName: Raise
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onMsgReceive:
-    m_PersistentCalls:
-      m_Calls: []
+  address:
+    UseConstant: 1
+    ConstantValue: ws://localhost
+    Variable: {fileID: 0}
+  port:
+    UseConstant: 1
+    ConstantValue: 3000
+    Variable: {fileID: 0}
