@@ -14,10 +14,10 @@ public class User : GenericSingletonClass<User>
 
     new void Awake() {
         base.Awake();
-        setId.execute();
     }
 
     void Start() {
+      setId.execute();
       if (!PlayerPrefs.HasKey("user")) {
         _id.Value = Guid.NewGuid().ToString();
         PlayerPrefs.SetString("user", _id.Value);

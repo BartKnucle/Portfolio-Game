@@ -24,18 +24,18 @@ namespace CrazyGoat.Network {
         jobs.Enqueue(newJob);
       }
 
-      public override void Awake() {
+      new void Awake() {
         base.Awake();
-        //status.Value = "Disconnected";
+      }
+
+      void Start() {
         webSocket = WebSocketFactory.CreateInstance(wsServer.address.Value + ":" + wsServer.port.Value);
         //  Binding the events
         webSocket.OnOpen += onConnectionOpen;
         webSocket.OnClose += onConnectionClose;
         webSocket.OnError += onConnectionError;
         webSocket.OnMessage += onMessage;
-      }
-
-      void Start() {
+        status.Value = "";
         webSocket.Connect();
       }
 
@@ -67,7 +67,7 @@ namespace CrazyGoat.Network {
 
       private void onConnectionClose(WebSocketCloseCode code) {
         changeStatus("Disconnected");
-        this.Start();
+        //this.Start();
       }
 
       private void onMessage(byte[] msg) {
