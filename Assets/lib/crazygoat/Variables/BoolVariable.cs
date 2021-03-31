@@ -3,12 +3,8 @@ using UnityEngine;
 namespace CrazyGoat.Variables
 {
     [CreateAssetMenu(menuName = "CrazyGoat/BoolVariable")]
-    public class BoolVariable : ScriptableObject
+    public class BoolVariable : GenericVariable
     {
-#if UNITY_EDITOR
-        [Multiline]
-        public string DeveloperDescription = "";
-#endif
         public bool Value;
 
         public void SetValue(bool value)

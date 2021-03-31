@@ -3,12 +3,8 @@ using UnityEngine;
 namespace CrazyGoat.Variables
 {
     [CreateAssetMenu(menuName = "CrazyGoat/IntVariable")]
-    public class IntVariable : ScriptableObject
+    public class IntVariable : GenericVariable
     {
-#if UNITY_EDITOR
-        [Multiline]
-        public string DeveloperDescription = "";
-#endif
         public int Value;
 
         public void SetValue(int value)

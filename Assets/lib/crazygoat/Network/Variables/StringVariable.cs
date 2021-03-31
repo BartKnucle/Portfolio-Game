@@ -24,7 +24,7 @@ namespace CrazyGoat.Network.Variables
         if (service._id) {
           dataJSON["_id"] = service._id.Value;
         }
-        dataJSON[this.name] = this.Value;
+        dataJSON[this.variableName] = this.Value;
         string msgString = dataJSON.ToString();
         msg.Send(msgString);
       }

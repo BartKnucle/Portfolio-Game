@@ -5,6 +5,7 @@ using CrazyGoat.Variables;
 using CrazyGoat.Events;
 using HybridWebSocket;
 using SimpleJSON;
+using UnityEditor;
 
 
 namespace CrazyGoat.Network {
@@ -73,7 +74,20 @@ namespace CrazyGoat.Network {
       private void onMessage(byte[] msg) {
         string strMsg = Encoding.UTF8.GetString(msg);
         JSONNode msgObject = JSON.Parse(strMsg);
-        string service = msgObject["data"]["service"];
+        string msgService = msgObject["data"]["service"];
+        string msgRequest = msgObject["data"]["request"];
+
+        services.FindAll(service => service.api == msgService)
+          .ForEach(service => {
+            service.requests.FindAll(request => request.request == msgRequest)
+              .ForEach(request => {
+                request.stringVariables
+                  .ForEach(variable => {
+                    variable.Value = msgObject["data"][variable.variableName];
+                  });
+              });
+          });
+
         //onMsgReceive.Invoke(service, msgObject);
 
         //dynamic msgObject = JsonUtility.FromJson<dynamic>(Encoding.UTF8.GetString(msg));

@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f23bdff04c1c754e965090c7d9f5e2e, type: 3}
-  m_Name: nickname
+  m_Name: User nickname
   m_EditorClassIdentifier: 
   DeveloperDescription: User nickename from the "Users" service
+  variableName: nickname
   autoSend: 1
   service: {fileID: 11400000, guid: d82de6464d61beb49b1aa87af868d353, type: 2}

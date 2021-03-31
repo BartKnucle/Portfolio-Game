@@ -8,6 +8,7 @@ namespace CrazyGoat.Network {
     [CreateAssetMenu(menuName = "CrazyGoat/Network/Request")]
     public class Request : ScriptableObject
     {
+      public string request;
       public Service service;
 
       public List<StringVariable> stringVariables;
@@ -20,7 +21,7 @@ namespace CrazyGoat.Network {
 
         foreach (var item in stringVariables)
         {
-            dataJSON[item.name] = item.Value;
+            dataJSON[item.variableName] = item.Value;
         }
 
         string msgString = dataJSON.ToString();
