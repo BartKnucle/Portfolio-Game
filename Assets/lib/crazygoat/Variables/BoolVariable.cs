@@ -6,16 +6,21 @@ namespace CrazyGoat.Variables
     [CreateAssetMenu(menuName = "CrazyGoat/BoolVariable")]
     public class BoolVariable : GenericVariable
     {
-        public bool Value;
-
-        public void SetValue(bool value)
+        private bool value;
+        public bool Value
         {
-            Value = value;
+          get { return value; }   // get method
+          set { SetValue(value); }  // set method
         }
 
-        public void SetValue(BoolVariable value)
+        virtual public bool SetValue(bool value)
         {
-            Value = value.Value;
+          if (this.value != value) {
+            this.value = value;
+            return true;
+          } else {
+            return false;
+          }
         }
 
         override public string GetString() {

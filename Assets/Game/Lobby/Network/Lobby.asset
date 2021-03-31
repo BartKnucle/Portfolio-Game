@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Lobby
   m_EditorClassIdentifier: 
   api: /api/lobby
-  _id: {fileID: 11400000, guid: 6fb9097acc7c7af4bba0c9f5441b6c4c, type: 2}
+  _id: {fileID: 11400000, guid: 8f671204243539d4aa12772ff4520d05, type: 2}
   requests:
   - {fileID: 11400000, guid: 0eda4f5c48a79c44a8bfdbdd5d211e7c, type: 2}

@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace CrazyGoat.Network.Variables
 {
-    [CustomPropertyDrawer(typeof(NetStringReference))]
-    public class StringReferenceDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(NetBoolReference))]
+    public class NetBoolReferenceDrawer : PropertyDrawer
     {
         /// <summary>
         /// Options to display in the popup to select constant or variable.

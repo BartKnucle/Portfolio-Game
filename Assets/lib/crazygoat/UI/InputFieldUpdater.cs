@@ -8,6 +8,10 @@ namespace CrazyGoat.UI
     public class InputFieldUpdater : MonoBehaviour {
         public GenericVariable variable;
 
+        void Start() {
+          SetComponentText();
+        }
+
         public void SetComponentText() {
             InputField inputField = gameObject.GetComponent<InputField>();
             inputField.SetTextWithoutNotify(variable.GetString());

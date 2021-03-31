@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d872bdcfd2370d141b5d6bf7b858ab3c, type: 3}
   m_Name: join
   m_EditorClassIdentifier: 
+  ServerRequestName: join
   service: {fileID: 11400000, guid: 98871c158bccdbf4f9e49bf20b82f407, type: 2}
   stringVariables:
-  - {fileID: 11400000, guid: 6fb9097acc7c7af4bba0c9f5441b6c4c, type: 2}
+  - {fileID: 11400000, guid: 8f671204243539d4aa12772ff4520d05, type: 2}
+  onReception: {fileID: 0}
