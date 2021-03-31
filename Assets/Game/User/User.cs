@@ -25,26 +25,5 @@ public class User : GenericSingletonClass<User>
       } else {
           _id.Value = PlayerPrefs.GetString("user");
       }
-
-      if (PlayerPrefs.HasKey("username")) {
-          nickname.Value = PlayerPrefs.GetString("username");
-      }
-    }
-
-    public void setName(string nickname) {
-      this.nickname.Value = nickname;
-      PlayerPrefs.SetString("username", nickname);
-      PlayerPrefs.Save();
-    }
-
-    public void setTeam(bool team) {
-      this._team = team;
-    }
-
-    public void joinLobby() {
-      //Sync("joinLobby");
-    }
-    public void quitLobby() {
-      //Sync("quitLobby");
     }
 }

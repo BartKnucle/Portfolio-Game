@@ -8,7 +8,6 @@ namespace CrazyGoat.Network {
     [CreateAssetMenu(menuName = "CrazyGoat/Network/Request")]
     public class Request : ScriptableObject
     {
-      new public string name;
       public Service service;
 
       public List<StringVariable> stringVariables;

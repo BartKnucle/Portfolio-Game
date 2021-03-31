@@ -85,10 +85,9 @@ namespace CrazyGoat.Network {
       
       void OnApplicationQuit()
       {
-        webSocket.Close();
-        /**if (status.Value == "Connected") {
+        if (status.Value == "Connected") {
           webSocket.Close();
-        }*/
+        }
       }
   }
 }
