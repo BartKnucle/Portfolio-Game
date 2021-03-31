@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b5a0628c9336374eb38d85f2d66bc17, type: 3}
-  m_Name: User _id
+  m_Script: {fileID: 11500000, guid: d872bdcfd2370d141b5d6bf7b858ab3c, type: 3}
+  m_Name: User setId
   m_EditorClassIdentifier: 
-  DeveloperDescription: Current user ID
-  DatabaseFieldName: _id
-  autoSend: 0
+  ServerRequestName: setId
   service: {fileID: 11400000, guid: d82de6464d61beb49b1aa87af868d353, type: 2}
+  stringVariables:
+  - {fileID: 11400000, guid: 8f671204243539d4aa12772ff4520d05, type: 2}
+  onReception: {fileID: 0}

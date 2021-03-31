@@ -68,7 +68,6 @@ namespace CrazyGoat.Network {
 
       private void onConnectionClose(WebSocketCloseCode code) {
         changeStatus("Disconnected");
-        //this.Start();
       }
 
       private void onMessage(byte[] msg) {
@@ -79,18 +78,15 @@ namespace CrazyGoat.Network {
 
         services.FindAll(service => service.api == msgService)
           .ForEach(service => {
-            service.requests.FindAll(request => request.request == msgRequest)
+            service.requests.FindAll(request => request.ServerRequestName == msgRequest)
               .ForEach(request => {
                 request.stringVariables
                   .ForEach(variable => {
-                    variable.Value = msgObject["data"][variable.variableName];
+                    variable.Value = msgObject["data"][variable.DatabaseFieldName];
                   });
+                jobs.Enqueue(request.onReception.Raise);
               });
           });
-
-        //onMsgReceive.Invoke(service, msgObject);
-
-        //dynamic msgObject = JsonUtility.FromJson<dynamic>(Encoding.UTF8.GetString(msg));
       }
 
       private void onConnectionError(string errMsg) {

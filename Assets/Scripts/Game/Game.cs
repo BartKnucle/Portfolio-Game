@@ -15,7 +15,7 @@ namespace Game
   public class Game : NetMonoBehaviour
   {
       [Tooltip("Game ID")]
-      public StringReference _id;
+      public NetStringReference _id;
       
       public int seed;
       [SerializeField]

@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 namespace CrazyGoat.Events
 {
+    [AddComponentMenu("CrazyGoat/Events/Listener")]
     public class GameEventListener : MonoBehaviour
     {
         [Tooltip("Event to register with.")]

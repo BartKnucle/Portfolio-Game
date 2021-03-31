@@ -4,7 +4,7 @@ using UnityEngine;
 namespace CrazyGoat.Variables
 {
     [CreateAssetMenu(menuName = "CrazyGoat/Variables Lists/StringList")]
-    public class StringList : GenericVariable
+    public class StringList : ScriptableObject
     {
         public List<string> Value;
 

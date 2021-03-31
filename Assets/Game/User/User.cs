@@ -5,8 +5,8 @@ using CrazyGoat.Variables;
 
 public class User : GenericSingletonClass<User>
 {
-    public CrazyGoat.Network.Variables.StringVariable _id;
-    public CrazyGoat.Network.Variables.StringVariable nickname;
+    public CrazyGoat.Network.Variables.NetStringVariable _id;
+    public CrazyGoat.Network.Variables.NetStringVariable nickname;
 
     public Request setId;
            
@@ -17,7 +17,6 @@ public class User : GenericSingletonClass<User>
     }
 
     void Start() {
-      setId.execute();
       if (!PlayerPrefs.HasKey("user")) {
         _id.Value = Guid.NewGuid().ToString();
         PlayerPrefs.SetString("user", _id.Value);
@@ -25,5 +24,6 @@ public class User : GenericSingletonClass<User>
       } else {
           _id.Value = PlayerPrefs.GetString("user");
       }
+      setId.execute();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace CrazyGoat.Variables
@@ -15,6 +16,13 @@ namespace CrazyGoat.Variables
         public void SetValue(BoolVariable value)
         {
             Value = value.Value;
+        }
+
+        override public string GetString() {
+          return Value.ToString();
+        }
+        override public void setFromString(string value) {
+          SetValue(Convert.ToBoolean(value));
         }
     }
 }

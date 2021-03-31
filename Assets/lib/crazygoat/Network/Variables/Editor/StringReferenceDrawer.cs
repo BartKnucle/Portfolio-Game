@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CrazyGoat.Network.Variables
 {
-    [CustomPropertyDrawer(typeof(StringReference))]
+    [CustomPropertyDrawer(typeof(NetStringReference))]
     public class StringReferenceDrawer : PropertyDrawer
     {
         /// <summary>

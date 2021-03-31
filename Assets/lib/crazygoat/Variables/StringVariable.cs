@@ -12,9 +12,20 @@ namespace CrazyGoat.Variables
           set { SetValue(value); }  // set method
         }
 
-        virtual public void SetValue(string value)
+        virtual public bool SetValue(string value)
         {
+          if (this.value != value) {
             this.value = value;
+            return true;
+          } else {
+            return false;
+          }
+        }
+        override public string GetString() {
+          return Value.ToString();
+        }
+        override public void setFromString(string value) {
+          SetValue(value);
         }
     }
 }

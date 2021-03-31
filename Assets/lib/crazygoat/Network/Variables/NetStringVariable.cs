@@ -1,19 +1,23 @@
 using UnityEngine;
 using SimpleJSON;
+using CrazyGoat.Variables;
 
 namespace CrazyGoat.Network.Variables
 {
-    [CreateAssetMenu(menuName = "CrazyGoat/Network/StringVariable")]
-    public class StringVariable : CrazyGoat.Variables.StringVariable {
+    [CreateAssetMenu(menuName = "CrazyGoat/Network/NetStringVariable")]
+    public class NetStringVariable : StringVariable {
 
       public bool autoSend = false;
       public Service service;
 
-      override public void SetValue(string value)
+      override public bool SetValue(string value)
       {
-          base.SetValue(value);
-          if (autoSend) {
+          bool updated = base.SetValue(value);
+          if (autoSend && updated) {
             Send();
+            return true;
+          } else {
+            return false;
           }
       }
 
@@ -24,7 +28,7 @@ namespace CrazyGoat.Network.Variables
         if (service._id) {
           dataJSON["_id"] = service._id.Value;
         }
-        dataJSON[this.variableName] = this.Value;
+        dataJSON[this.DatabaseFieldName] = this.Value;
         string msgString = dataJSON.ToString();
         msg.Send(msgString);
       }
