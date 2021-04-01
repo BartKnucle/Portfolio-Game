@@ -27,6 +27,10 @@ public class UIJoin : MonoBehaviour
       nickname.SetValue(txtNickname.text);
     }
 
+    public void getNickname() {
+      txtNickname.SetValueWithoutNotify(nickname.Value);
+    }
+
     private void setTeam() {
       team.SetValue(tglTeam.value);
     }

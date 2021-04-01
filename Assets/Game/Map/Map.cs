@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using CrazyGoat.Variables;
 
 public class Map : MonoBehaviour
 {
-    // Level generation seed
-    public int seed = 0;
+
+    public IntVariable seed;
     [Range(10, 50)]
     public int sizeX = 20;
 
@@ -15,9 +14,7 @@ public class Map : MonoBehaviour
     public GameObject brickPrefab;
 
     public void generateMaze() {
-        seed = new System.Random().Next(1, 5000);
-
-        Random.InitState(seed);
+        Random.InitState(seed.Value);
         _generateLines();
         _setStructure();
     }
