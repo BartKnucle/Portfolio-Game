@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b335eb1546c0f14d85698155eded9ec, type: 3}
-  m_Name: Lobby Teams
+  m_Script: {fileID: 11500000, guid: 79461f2128cbc5648b7a191aa4e05ba4, type: 3}
+  m_Name: Lobby Service
   m_EditorClassIdentifier: 
-  DeveloperDescription: Is the player want to play in teams
-  DatabaseFieldName: team
-  autoSend: 0
-  service: {fileID: 11400000, guid: 98871c158bccdbf4f9e49bf20b82f407, type: 2}
+  api: /api/lobby
+  _id: {fileID: 11400000, guid: 8f671204243539d4aa12772ff4520d05, type: 2}
+  requests:
+  - {fileID: 11400000, guid: 0eda4f5c48a79c44a8bfdbdd5d211e7c, type: 2}

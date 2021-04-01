@@ -81,6 +81,19 @@ namespace CrazyGoat.Network {
             service.requests.FindAll(request => request.ServerRequestName == msgRequest)
               .ForEach(request => {
 
+                // Set the float variables
+                request.floatVariables
+                  .ForEach(variable => {
+                    variable.Value = msgObject["data"][variable.DatabaseFieldName];
+                  });
+
+
+                // Set the int variables
+                request.intVariables
+                  .ForEach(variable => {
+                    variable.Value = msgObject["data"][variable.DatabaseFieldName];
+                  });
+
                 // Set the string variables
                 request.stringVariables
                   .ForEach(variable => {

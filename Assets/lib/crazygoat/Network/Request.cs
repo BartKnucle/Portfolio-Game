@@ -11,7 +11,8 @@ namespace CrazyGoat.Network {
     {
       public string ServerRequestName;
       public Service service;
-
+      public List<FloatVariable> floatVariables;
+      public List<IntVariable> intVariables;
       public List<StringVariable> stringVariables;
       public List<BoolVariable> boolVariables;
 
@@ -22,6 +23,16 @@ namespace CrazyGoat.Network {
         JSONNode dataJSON = JSON.Parse("{}");
         dataJSON["service"] = service.api;
         dataJSON["request"] = this.ServerRequestName;
+
+        foreach (var item in floatVariables)
+        {
+          dataJSON[item.DatabaseFieldName] = item.Value;
+        }
+
+        foreach (var item in intVariables)
+        {
+          dataJSON[item.DatabaseFieldName] = item.Value;
+        }
 
         foreach (var item in stringVariables)
         {

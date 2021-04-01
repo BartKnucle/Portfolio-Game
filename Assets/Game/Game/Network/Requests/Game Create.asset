@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d872bdcfd2370d141b5d6bf7b858ab3c, type: 3}
-  m_Name: Lobby join
+  m_Name: Game Create
   m_EditorClassIdentifier: 
-  ServerRequestName: join
-  service: {fileID: 11400000, guid: 98871c158bccdbf4f9e49bf20b82f407, type: 2}
+  ServerRequestName: create
+  service: {fileID: 11400000, guid: 2c360e2a2566d644db1afbe644a33aeb, type: 2}
   stringVariables:
-  - {fileID: 11400000, guid: 8f671204243539d4aa12772ff4520d05, type: 2}
-  boolVariables:
-  - {fileID: 11400000, guid: 2709bf68702396b48b318b520f54a7a8, type: 2}
-  onReception: {fileID: 0}
+  - {fileID: 11400000, guid: 8ab5dc1eff3148a489cce29c15732874, type: 2}
+  boolVariables: []
+  onReception: {fileID: 11400000, guid: c0d9ca358c4be01428e0ded534f20b06, type: 2}
