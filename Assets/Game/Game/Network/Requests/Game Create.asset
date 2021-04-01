@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ServerRequestName: create
   service: {fileID: 11400000, guid: 2c360e2a2566d644db1afbe644a33aeb, type: 2}
+  floatVariables: []
+  intVariables:
+  - {fileID: 11400000, guid: 6582b51b6369ade46a848277c9f870bb, type: 2}
   stringVariables:
   - {fileID: 11400000, guid: 8ab5dc1eff3148a489cce29c15732874, type: 2}
   boolVariables: []

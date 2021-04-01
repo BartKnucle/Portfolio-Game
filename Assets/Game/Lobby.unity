@@ -254,6 +254,28 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &439228407 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2060536865018484413, guid: 65d8c36b17e2496409410736d4f01418,
+    type: 3}
+  m_PrefabInstance: {fileID: 766014894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &439228408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439228407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e839e4c12473014b9b3d3faccc0f61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: c0d9ca358c4be01428e0ded534f20b06, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &711523860
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +479,7 @@ PrefabInstance:
     - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
         type: 3}
       propertyPath: services.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
         type: 3}
@@ -470,6 +492,12 @@ PrefabInstance:
       propertyPath: services.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 98871c158bccdbf4f9e49bf20b82f407,
+        type: 2}
+    - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
+        type: 3}
+      propertyPath: services.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2c360e2a2566d644db1afbe644a33aeb,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9e77fdc512f40e49a619a1f16c50ef4, type: 3}

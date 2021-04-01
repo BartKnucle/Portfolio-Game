@@ -21,4 +21,8 @@ public class GameState : GenericSingletonClass<MonoBehaviour>
                 break;
         }
     }
+
+    public void onGameCreated() {
+      SceneManager.LoadScene("Game");
+    }
 }
