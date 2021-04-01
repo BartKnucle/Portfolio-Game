@@ -13,6 +13,7 @@ namespace CrazyGoat.Network {
       public Service service;
 
       public List<StringVariable> stringVariables;
+      public List<BoolVariable> boolVariables;
 
       public GameEvent onReception;
 
@@ -24,7 +25,12 @@ namespace CrazyGoat.Network {
 
         foreach (var item in stringVariables)
         {
-            dataJSON[item.DatabaseFieldName] = item.Value;
+          dataJSON[item.DatabaseFieldName] = item.Value;
+        }
+
+        foreach (var item in boolVariables)
+        {
+          dataJSON[item.DatabaseFieldName] = item.Value;
         }
 
         string msgString = dataJSON.ToString();

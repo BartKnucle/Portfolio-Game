@@ -80,10 +80,19 @@ namespace CrazyGoat.Network {
           .ForEach(service => {
             service.requests.FindAll(request => request.ServerRequestName == msgRequest)
               .ForEach(request => {
+
+                // Set the string variables
                 request.stringVariables
                   .ForEach(variable => {
                     variable.Value = msgObject["data"][variable.DatabaseFieldName];
                   });
+
+                // Set the bool variables
+                request.boolVariables
+                  .ForEach(variable => {
+                    variable.Value = msgObject["data"][variable.DatabaseFieldName];
+                  });
+
                 jobs.Enqueue(request.onReception.Raise);
               });
           });
