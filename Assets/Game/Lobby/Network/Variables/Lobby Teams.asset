@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeveloperDescription: Is the player want to play in teams
   DatabaseFieldName: teams
-  autoSend: 1
+  autoSend: 0
   service: {fileID: 11400000, guid: 98871c158bccdbf4f9e49bf20b82f407, type: 2}

@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="width: 30%; height: 100%; flex-direction: column;">
+        <ui:TextField picking-mode="Ignore" label="NickName" value="filler text" name="txt-nickname" style="width: auto; flex-direction: row; align-items: flex-start; justify-content: space-between;" />
+        <ui:Toggle label="Play in team" name="chk-team" style="flex-direction: row;" />
+        <ui:Button text="Join game" display-tooltip-when-elided="true" label="Play in team" name="btn-joinlobby" style="bottom: auto;" />
+    </ui:VisualElement>
+</ui:UXML>

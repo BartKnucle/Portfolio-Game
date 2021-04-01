@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d872bdcfd2370d141b5d6bf7b858ab3c, type: 3}
-  m_Name: join
+  m_Name: Lobby join
   m_EditorClassIdentifier: 
   ServerRequestName: join
   service: {fileID: 11400000, guid: 98871c158bccdbf4f9e49bf20b82f407, type: 2}
