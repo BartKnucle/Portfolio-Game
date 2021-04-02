@@ -4,8 +4,8 @@ using SimpleJSON;
 
 namespace CrazyGoat.Network
 {
-  [Serializable]
-  public class NetMonoBehaviour : MonoBehaviour
+  [CreateAssetMenu(menuName = "CrazyGoat/Network/Object")]
+  public class NetMonoBehaviour : ScriptableObject
   {
     public string service = "";
 

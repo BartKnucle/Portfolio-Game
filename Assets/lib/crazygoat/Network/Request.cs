@@ -14,6 +14,7 @@ namespace CrazyGoat.Network {
       public List<FloatVariable> floatVariables;
       public List<IntVariable> intVariables;
       public List<StringVariable> stringVariables;
+      public List<StringList> stringListVariables;
       public List<BoolVariable> boolVariables;
 
       public GameEvent onReception;
@@ -32,6 +33,19 @@ namespace CrazyGoat.Network {
         foreach (var item in intVariables)
         {
           dataJSON[item.DatabaseFieldName] = item.Value;
+        }
+
+        foreach (var item in stringVariables)
+        {
+          dataJSON[item.DatabaseFieldName] = item.Value;
+        }
+
+        foreach (var list in stringListVariables)
+        {
+          for (int i = 0; i < list.Value.Count; i++)
+          {
+              dataJSON[list.DatabaseFieldName][i] = list.Value[i];
+          }
         }
 
         foreach (var item in stringVariables)

@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8286a64bff929c940b3f27bf97a53138, type: 3}
-  m_Name: Players IDs
+  m_Name: Game Players Ids
   m_EditorClassIdentifier: 
+  DatabaseFieldName: players
+  DatabaseSubObjectField: _id
   Value:
-  - 
-  - 
-  - 
   - 

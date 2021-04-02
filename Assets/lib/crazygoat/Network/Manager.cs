@@ -100,6 +100,15 @@ namespace CrazyGoat.Network {
                     variable.Value = msgObject["data"][variable.DatabaseFieldName];
                   });
 
+                // Set the string list variables
+                request.stringListVariables
+                  .ForEach(List => {
+                    for (int i = 0; i < List.Value.Count; i++)
+                    {
+                      List.Value[i] = msgObject["data"][List.DatabaseFieldName][i][List.DatabaseSubObjectField]; 
+                    }
+                  });
+
                 // Set the bool variables
                 request.boolVariables
                   .ForEach(variable => {

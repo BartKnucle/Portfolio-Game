@@ -19,5 +19,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6582b51b6369ade46a848277c9f870bb, type: 2}
   stringVariables:
   - {fileID: 11400000, guid: 8ab5dc1eff3148a489cce29c15732874, type: 2}
+  stringListVariables:
+  - {fileID: 11400000, guid: f7f3d2aedbcccd544ac13acb8232062c, type: 2}
   boolVariables: []
   onReception: {fileID: 11400000, guid: c0d9ca358c4be01428e0ded534f20b06, type: 2}
