@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using CrazyGoat.Variables;
 using CrazyGoat.Events;
-using HybridWebSocket;
+using NativeWebSocket;
 using SimpleJSON;
 using UnityEngine;
 
@@ -36,7 +36,6 @@ namespace CrazyGoat.Network {
         webSocket.OnOpen += onConnectionOpen;
         webSocket.OnClose += onConnectionClose;
         webSocket.OnError += onConnectionError;
-        //webSocket.OnMessage += onMessage;
         webSocket.OnMessage += onMessage;
 
         status.Value = "";
@@ -44,6 +43,9 @@ namespace CrazyGoat.Network {
       }
 
       void Update() {
+        #if !UNITY_WEBGL || UNITY_EDITOR
+          this.webSocket.DispatchMessageQueue();
+        #endif
         while (jobs.Count > 0) 
             jobs.Dequeue().Invoke();
 
