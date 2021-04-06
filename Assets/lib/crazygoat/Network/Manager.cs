@@ -5,14 +5,15 @@ using CrazyGoat.Variables;
 using CrazyGoat.Events;
 using HybridWebSocket;
 using SimpleJSON;
-using UnityEditor;
+using UnityEngine;
 
 
 namespace CrazyGoat.Network {
+  [AddComponentMenu("CrazyGoat/Network/Manager")]
   public class Manager : GenericSingletonClass<Manager>
   {
       //public static Manager instance;
-      public WsServer wsServer;
+      public WsClient wsClient;
       public List<Service> services;
       public WebSocket webSocket;
       public GameEvent onStatusChanged;
@@ -30,12 +31,14 @@ namespace CrazyGoat.Network {
       }
 
       void Start() {
-        webSocket = WebSocketFactory.CreateInstance(wsServer.address.Value + ":" + wsServer.port.Value);
+        webSocket = WebSocketFactory.CreateInstance(wsClient.address.Value + ":" + wsClient.port.Value);
         //  Binding the events
         webSocket.OnOpen += onConnectionOpen;
         webSocket.OnClose += onConnectionClose;
         webSocket.OnError += onConnectionError;
+        //webSocket.OnMessage += onMessage;
         webSocket.OnMessage += onMessage;
+
         status.Value = "";
         webSocket.Connect();
       }
@@ -70,16 +73,21 @@ namespace CrazyGoat.Network {
         changeStatus("Disconnected");
       }
 
-      private void onMessage(byte[] msg) {
+        private void onMessage(byte[] msg) {
         string strMsg = Encoding.UTF8.GetString(msg);
         JSONNode msgObject = JSON.Parse(strMsg);
         string msgService = msgObject["data"]["service"];
         string msgRequest = msgObject["data"]["request"];
 
+        int numServices = 0;
+        int numRequests = 0;
+        
         services.FindAll(service => service.api == msgService)
           .ForEach(service => {
+            numServices += 1;
             service.requests.FindAll(request => request.ServerRequestName == msgRequest)
               .ForEach(request => {
+                numRequests += 1;
 
                 // Set the float variables
                 request.floatVariables
@@ -118,6 +126,19 @@ namespace CrazyGoat.Network {
                 jobs.Enqueue(request.onReception.Raise);
               });
           });
+
+          string countSvc = $" Mathing services count: {numServices}";
+          string countRqst = $" Mathing requests count: {numRequests}";
+
+          Debug.Log("Received message: " + strMsg + countSvc + countRqst, this);
+
+          if (numServices == 0) {
+            Debug.LogError("No matching service");
+          }
+
+          if (numRequests == 0) {
+            Debug.LogError("No matching request");
+          }
       }
 
       private void onConnectionError(string errMsg) {
