@@ -123,6 +123,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &115053450 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3528461922647806786, guid: f9e77fdc512f40e49a619a1f16c50ef4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1164881202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &115053451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115053450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1ee64b70dfe0dc4da9dc37baa014ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &711523860
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +386,12 @@ PrefabInstance:
       propertyPath: services
       value: 
       objectReference: {fileID: 11400000, guid: 68868de137642184fb52df61b3478ea8,
+        type: 2}
+    - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
+        type: 3}
+      propertyPath: wsClient
+      value: 
+      objectReference: {fileID: 11400000, guid: ce8b38d783a96ef4892c2b4973e27226,
         type: 2}
     - target: {fileID: 3528461922647806909, guid: f9e77fdc512f40e49a619a1f16c50ef4,
         type: 3}
