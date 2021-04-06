@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8286a64bff929c940b3f27bf97a53138, type: 3}
-  m_Name: Api Services
+  m_Script: {fileID: 11500000, guid: 6089ad6ae25ffbd45ae2faa5094935d1, type: 3}
+  m_Name: Players Colors
   m_EditorClassIdentifier: 
-  DeveloperDescription: 
-  Value: []
+  Value:
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 0.0915432, g: 1, b: 0, a: 0}
+  - {r: 0, g: 0.16457057, b: 1, a: 0}
+  - {r: 0.9719956, g: 1, b: 0, a: 0}

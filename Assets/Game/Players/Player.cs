@@ -3,16 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using CrazyGoat.Variables;
+using CrazyGoat.Colors;
 using Unity.MLAgents.Sensors;
 
 public class Player : MonoBehaviour
 {
-
-    //public Material material;
+    public StringList players;
+    public StringVariable UserId;
+    public int index = 0;
+    public bool isMe = false;
+    public ColorList colors;
 
     [HideInInspector]
-    public string id;
-    public int index = 0;
     // Player speed
     public int speed = 4;
     // Player number on the map (0 - 3)
@@ -21,10 +24,6 @@ public class Player : MonoBehaviour
 
     public int gridPositionX;
     public int gridPositionZ;
-
-    private Messages _messages;
-    private Map _map;
-    //private Game _game;
 
     // For AI training
     public float aiStartTime = 0f;
@@ -35,25 +34,21 @@ public class Player : MonoBehaviour
     public Vector4 aiDestinations = new Vector4(0, 0, 0, 0);
 
     void Awake() {
-        /*id = PlayerPrefs.GetString("_id");
-        _messages = transform.root.GetChild(5).GetComponent<Messages>(); //GameObject.Find("/Messages").GetComponent<Messages>();
-        _map = transform.root.GetChild(0).GetComponent<Map>();
-        _game = transform.root.GetComponent<Game>();
+        for (int i = 0; i < players.Value.Count; i++)
+        {
+            if (transform.parent.name == players.Value[i]) {
+              this.index = i;
+            }
+        }
 
-        if (!PlayerPrefs.HasKey("user")) {
-            id = Guid.NewGuid().ToString();
-            PlayerPrefs.SetString("user", id);
-            PlayerPrefs.Save();
+        if (transform.parent.name == UserId.Value) {
+          isMe = true;
         } else {
-            id = PlayerPrefs.GetString("user");
-        }*/
+          transform.GetChild(2).gameObject.SetActive(false);
+        }
 
-        //transform.GetComponent<CameraSensor>().Camera = transform.root.GetChild(6).GetChild(0).GetComponent<Camera>();
-    }
+        color = colors.Value[index];
 
-    void start () {
-        gridPositionX = 0;
-        gridPositionZ = 0;
         reset();
     }
 
@@ -63,6 +58,8 @@ public class Player : MonoBehaviour
     }
 
     void Update() {
+        gridPositionX = (int)Mathf.Round(transform.localPosition.x);
+        gridPositionZ = (int)Mathf.Round(transform.localPosition.z);
         // Rotate
         if (Input.GetKey("left")) {
             //transform.Rotate(new Vector3(0, -Time.deltaTime * speed * 50, 0));
@@ -73,7 +70,7 @@ public class Player : MonoBehaviour
             move("right");
         }
 
-        if (transform.localPosition.x < 0 || transform.localPosition.x > _map.sizeX || transform.localPosition.z < 0 || transform.localPosition.z > _map.sizeZ) {
+        if (transform.localPosition.x < 0 || transform.localPosition.x > Map.instance.sizeX || transform.localPosition.z < 0 || transform.localPosition.z > Map.instance.sizeZ) {
             reset();
         }
     }
@@ -94,58 +91,60 @@ public class Player : MonoBehaviour
     }
 
     public void  move(string key) {
-        int OldGridPositionX = gridPositionX;
-        int OldGridPositionZ = gridPositionZ;
+        if (isMe) {
+          int OldGridPositionX = gridPositionX;
+          int OldGridPositionZ = gridPositionZ;
 
-        aiStartTime += Time.deltaTime;
-        
-        switch (key)
-        {
-            case "up":
-                GetComponent<Rigidbody>().MovePosition(
-                    transform.position + transform.forward * speed * Time.deltaTime
-                );
-                break;
-            case "down":
-                //GetComponent<Rigidbody>().velocity = -transform.forward * speed * 30 * Time.deltaTime;
-                GetComponent<Rigidbody>().MovePosition(
-                    transform.position - transform.forward * speed * Time.deltaTime
-                );
-                break;
-            case "left":
-                //GetComponent<Rigidbody>().AddTorque(-Vector3.up * Time.deltaTime * speed * 30);
-                transform.Rotate(new Vector3(0, -Time.deltaTime * speed * 40, 0));
-                break;
-            case "right":
-                //GetComponent<Rigidbody>().AddTorque(Vector3.up * Time.deltaTime * speed * 30);
-                transform.Rotate(new Vector3(0, Time.deltaTime * speed * 40, 0));
-                break;
+          aiStartTime += Time.deltaTime;
+          
+          switch (key)
+          {
+              case "up":
+                  GetComponent<Rigidbody>().MovePosition(
+                      transform.position + transform.forward * speed * Time.deltaTime
+                  );
+                  break;
+              case "down":
+                  //GetComponent<Rigidbody>().velocity = -transform.forward * speed * 30 * Time.deltaTime;
+                  GetComponent<Rigidbody>().MovePosition(
+                      transform.position - transform.forward * speed * Time.deltaTime
+                  );
+                  break;
+              case "left":
+                  //GetComponent<Rigidbody>().AddTorque(-Vector3.up * Time.deltaTime * speed * 30);
+                  transform.Rotate(new Vector3(0, -Time.deltaTime * speed * 40, 0));
+                  break;
+              case "right":
+                  //GetComponent<Rigidbody>().AddTorque(Vector3.up * Time.deltaTime * speed * 30);
+                  transform.Rotate(new Vector3(0, Time.deltaTime * speed * 40, 0));
+                  break;
+          }
+
+          gridPositionX = (int)Mathf.Round(transform.localPosition.x);
+          gridPositionZ = (int)Mathf.Round(transform.localPosition.z);
+
+          // If we change grid position
+          /*if (OldGridPositionX != gridPositionX || OldGridPositionZ != gridPositionZ) {
+              _checkDestinations();
+          }*/
+
+          // Change the map ownership
+          //Map map = GameObject.Find("/" + transform.parent.name +  "/Map").GetComponent<Map>();
+          //map.GetOwnerShip(this, gridPositionX, gridPositionZ);
+
+          // Send the new if we are ingame
+          
+          /*if (_game.ID != "") {
+              _messages.dispatch("api/player/position/" + _game.ID + "/" + transform.localPosition.x + "/" + transform.localPosition.z);
+          }*/
         }
-
-        gridPositionX = (int)Mathf.Round(transform.localPosition.x);
-        gridPositionZ = (int)Mathf.Round(transform.localPosition.z);
-
-        // If we change grid position
-        /*if (OldGridPositionX != gridPositionX || OldGridPositionZ != gridPositionZ) {
-            _checkDestinations();
-        }*/
-
-        // Change the map ownership
-        //Map map = GameObject.Find("/" + transform.parent.name +  "/Map").GetComponent<Map>();
-        //map.GetOwnerShip(this, gridPositionX, gridPositionZ);
-
-        // Send the new if we are ingame
-        
-        /*if (_game.ID != "") {
-            _messages.dispatch("api/player/position/" + _game.ID + "/" + transform.localPosition.x + "/" + transform.localPosition.z);
-        }*/
     }
 
     private void _checkDestinations() {
-        float left = _map.getItem(gridPositionX - 1, gridPositionZ).GetComponent<Brick>().isAvailable() * isMine(gridPositionX - 1, gridPositionZ);
-        float right = _map.getItem(gridPositionX + 1, gridPositionZ).GetComponent<Brick>().isAvailable() * isMine(gridPositionX + 1, gridPositionZ);
-        float forward = _map.getItem(gridPositionX, gridPositionZ + 1).GetComponent<Brick>().isAvailable() * isMine(gridPositionX, gridPositionZ + 1);
-        float backward = _map.getItem(gridPositionX, gridPositionZ - 1).GetComponent<Brick>().isAvailable() * isMine(gridPositionX, gridPositionZ - 1);
+        float left = Map.instance.getItem(gridPositionX - 1, gridPositionZ).GetComponent<Brick>().isAvailable() * isMine(gridPositionX - 1, gridPositionZ);
+        float right = Map.instance.getItem(gridPositionX + 1, gridPositionZ).GetComponent<Brick>().isAvailable() * isMine(gridPositionX + 1, gridPositionZ);
+        float forward = Map.instance.getItem(gridPositionX, gridPositionZ + 1).GetComponent<Brick>().isAvailable() * isMine(gridPositionX, gridPositionZ + 1);
+        float backward = Map.instance.getItem(gridPositionX, gridPositionZ - 1).GetComponent<Brick>().isAvailable() * isMine(gridPositionX, gridPositionZ - 1);
 
         aiDestinations = new Vector4(left, forward, right, backward);
     }
@@ -195,7 +194,7 @@ public class Player : MonoBehaviour
 
     // Is the player ower of the brick
     public float isMine(int x, int z) {
-        if (_map.getItem(x, z).GetComponent<Brick>().owner == transform.GetComponent<Player>()) {
+        if (Map.instance.getItem(x, z).GetComponent<Brick>().owner == transform.GetComponent<Player>()) {
             return 1;
         } else {
             return 0;
@@ -213,17 +212,17 @@ public class Player : MonoBehaviour
                 break;
             case 1:
                 //mat = Resources.Load<Material>("Materials/Two");
-                transform.localPosition = new Vector3(_map.sizeX - 2, 0, 1);
+                transform.localPosition = new Vector3(Map.instance.sizeX - 2, 0, 1);
                 transform.localRotation = Quaternion.Euler(-Vector3.up * 90);
                 break;
             case 2:
                 //mat = Resources.Load<Material>("Materials/Tree");
-                transform.localPosition = new Vector3(1, 0, _map.sizeZ -2);
+                transform.localPosition = new Vector3(1, 0, Map.instance.sizeZ -2);
                 transform.localRotation = Quaternion.Euler(Vector3.up * 90);
                 break;
             case 3:
                 //mat = Resources.Load<Material>("Materials/Four");
-                transform.localPosition = new Vector3(_map.sizeX -2, 0, _map.sizeZ -2);
+                transform.localPosition = new Vector3(Map.instance.sizeX -2, 0, Map.instance.sizeZ -2);
                 transform.localRotation = Quaternion.Euler(-Vector3.up * 180);
                 break;
             
@@ -242,9 +241,9 @@ public class Player : MonoBehaviour
         transform.GetChild(1).GetChild(24).GetComponent<SkinnedMeshRenderer>().material.SetColor("playerColor", color);
         transform.GetChild(1).GetChild(25).GetComponent<SkinnedMeshRenderer>().material.SetColor("playerColor", color);
         
-        aiScore = 0;
-        aicollisions = 0;
-        _checkDestinations();
+        //aiScore = 0;
+        //aicollisions = 0;
+        //_checkDestinations();
     }
 }
 

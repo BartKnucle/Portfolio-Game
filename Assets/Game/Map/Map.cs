@@ -13,6 +13,14 @@ public class Map : MonoBehaviour
 
     public GameObject brickPrefab;
 
+    public static Map instance;
+
+    Map() {
+      if (!instance) {
+        instance = this;
+      }
+    }
+
     public void generateMaze() {
         Random.InitState(seed.Value);
         _generateLines();

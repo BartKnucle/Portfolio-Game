@@ -12,7 +12,7 @@ public class Laser : MonoBehaviour
     void Awake()
     {
         _line = transform.GetComponent<LineRenderer>();
-        _maxDistance = transform.root.GetChild(0).GetComponent<Map>().sizeX + transform.root.GetChild(0).GetComponent<Map>().sizeZ;
+        _maxDistance = Map.instance.sizeX + Map.instance.sizeZ;
     }
 
     // Update is called once per frame
