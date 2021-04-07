@@ -12,10 +12,11 @@ public class Players : MonoBehaviour
     public void Awake() {
       foreach (string playerId in players.Value)
       {
-        GameObject player = new GameObject();
+        /*GameObject player = new GameObject();
         player.transform.parent = transform;
+        player.name = playerId;*/
+        GameObject player = GameObject.Instantiate(playerPrefab, transform);
         player.name = playerId;
-        GameObject.Instantiate(playerPrefab, player.transform);
       }
     }
 }

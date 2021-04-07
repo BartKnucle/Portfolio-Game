@@ -1,47 +1,36 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using CrazyGoat.Variables;
 using CrazyGoat.Colors;
-using Unity.MLAgents.Sensors;
+using CrazyGoat.Network.Variables;
 
 public class Player : MonoBehaviour
 {
     public StringList players;
     public StringVariable UserId;
+    public NetIntVariable score;
     public int index = 0;
     public bool isMe = false;
     public ColorList colors;
-
-    [HideInInspector]
-    // Player speed
     public int speed = 4;
-    // Player number on the map (0 - 3)
 
     public Color color;
 
-    public int gridPositionX;
-    public int gridPositionZ;
-
-    // For AI training
-    public float aiStartTime = 0f;
-    public int aiScore = 0;
-    public int aiMaxScore = 0;
-    public int aicollisions = 0;
-
-    public Vector4 aiDestinations = new Vector4(0, 0, 0, 0);
+    public Vector2 gridPosition;
 
     void Awake() {
+      score = ScriptableObject.CreateInstance<NetIntVariable>();
+      score.Value = 0;
+    }
+
+    void Start() {
         for (int i = 0; i < players.Value.Count; i++)
         {
-            if (transform.parent.name == players.Value[i]) {
+            if (name == players.Value[i]) {
               this.index = i;
             }
         }
 
-        if (transform.parent.name == UserId.Value) {
+        if (name == UserId.Value) {
           isMe = true;
         } else {
           transform.GetChild(2).gameObject.SetActive(false);
@@ -51,15 +40,9 @@ public class Player : MonoBehaviour
 
         reset();
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        aicollisions += 1;
-    }
-
     void Update() {
-        gridPositionX = (int)Mathf.Round(transform.localPosition.x);
-        gridPositionZ = (int)Mathf.Round(transform.localPosition.z);
+        gridPosition.x = (int)Mathf.Round(transform.localPosition.x);
+        gridPosition.y = (int)Mathf.Round(transform.localPosition.z);
         // Rotate
         if (Input.GetKey("left")) {
             //transform.Rotate(new Vector3(0, -Time.deltaTime * speed * 50, 0));
@@ -92,11 +75,6 @@ public class Player : MonoBehaviour
 
     public void  move(string key) {
         if (isMe) {
-          int OldGridPositionX = gridPositionX;
-          int OldGridPositionZ = gridPositionZ;
-
-          aiStartTime += Time.deltaTime;
-          
           switch (key)
           {
               case "up":
@@ -120,33 +98,13 @@ public class Player : MonoBehaviour
                   break;
           }
 
-          gridPositionX = (int)Mathf.Round(transform.localPosition.x);
-          gridPositionZ = (int)Mathf.Round(transform.localPosition.z);
-
-          // If we change grid position
-          /*if (OldGridPositionX != gridPositionX || OldGridPositionZ != gridPositionZ) {
-              _checkDestinations();
-          }*/
-
-          // Change the map ownership
-          //Map map = GameObject.Find("/" + transform.parent.name +  "/Map").GetComponent<Map>();
-          //map.GetOwnerShip(this, gridPositionX, gridPositionZ);
-
-          // Send the new if we are ingame
-          
-          /*if (_game.ID != "") {
-              _messages.dispatch("api/player/position/" + _game.ID + "/" + transform.localPosition.x + "/" + transform.localPosition.z);
-          }*/
+          gridPosition.x = (int)Mathf.Round(transform.localPosition.x);
+          gridPosition.y = (int)Mathf.Round(transform.localPosition.z);
         }
     }
 
-    private void _checkDestinations() {
-        float left = Map.instance.getItem(gridPositionX - 1, gridPositionZ).GetComponent<Brick>().isAvailable() * isMine(gridPositionX - 1, gridPositionZ);
-        float right = Map.instance.getItem(gridPositionX + 1, gridPositionZ).GetComponent<Brick>().isAvailable() * isMine(gridPositionX + 1, gridPositionZ);
-        float forward = Map.instance.getItem(gridPositionX, gridPositionZ + 1).GetComponent<Brick>().isAvailable() * isMine(gridPositionX, gridPositionZ + 1);
-        float backward = Map.instance.getItem(gridPositionX, gridPositionZ - 1).GetComponent<Brick>().isAvailable() * isMine(gridPositionX, gridPositionZ - 1);
-
-        aiDestinations = new Vector4(left, forward, right, backward);
+    public void addScore(int points) {
+      score.Value += points;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -167,30 +125,6 @@ public class Player : MonoBehaviour
         // Notify the server to replace the old id by the new one;
         Network.instance.send("api/player/connect/" + id);
     }*/
-
-    public void addScore() {
-        aiScore += 1;
-        /*Game _game = transform.root.GetComponent<Game>();
-        if (aiScore > _game.bestScore) {
-            _game.bestScore = aiScore;
-        }
-        _game.addScore();*/
-        refreshScore();
-    }
-
-    public void rmScore() {
-        /*Game _game = transform.root.GetComponent<Game>();
-        if (aiScore == _game.bestScore) {
-            _game.bestScore -= 1;
-        }
-        aiScore -= 1;
-        _game.rmScore();
-        refreshScore();*/
-    }
-
-    private void refreshScore() {
-        //GameObject.Find("txt" + name).GetComponent<Text>().text = aiScore.ToString();
-    }
 
     // Is the player ower of the brick
     public float isMine(int x, int z) {

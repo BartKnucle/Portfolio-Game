@@ -9,28 +9,6 @@ public class Brick : MonoBehaviour
     public int x;
     public int z;
 
-/*    private Material _defaultMat;
-    private Material _pOneMat;
-    private Material _pTwoMat;
-    private Material _pTreeMat;
-    private Material _pFourMat; */
-    // Start is called before the first frame update
-    void Start()
-    {
-        _map = transform.root.GetChild(0).GetComponent<Map>();
-        /*_defaultMat = Resources.Load<Material>("Materials/Default");
-        _pOneMat = Resources.Load<Material>("Materials/One");
-        _pTwoMat = Resources.Load<Material>("Materials/Two");
-        _pTreeMat = Resources.Load<Material>("Materials/Tree");
-        _pFourMat = Resources.Load<Material>("Materials/Four");*/
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void setBarriers() {
         for (int i = 0; i < 4; i++)
         {
@@ -73,13 +51,13 @@ public class Brick : MonoBehaviour
 
             if (!owner) {
                 if (owner) {
-                    owner.rmScore();
+                    owner.addScore(-1);
                 }
 
                 owner = player;
 
                 transform.GetComponent<MeshRenderer>().material.SetColor("playerColor", owner.color);
-                owner.addScore();
+                owner.addScore(1);
                 
                 setBarriers();
             }

@@ -363,10 +363,6 @@ GameObject:
   - component: {fileID: 4117929128961218303}
   - component: {fileID: 4117929128961218302}
   - component: {fileID: 3494361620522922728}
-  - component: {fileID: 3883434835471493997}
-  - component: {fileID: 4117929128961218298}
-  - component: {fileID: 4117929128961218299}
-  - component: {fileID: 3494361620522922735}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -405,18 +401,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   players: {fileID: 11400000, guid: f7f3d2aedbcccd544ac13acb8232062c, type: 2}
   UserId: {fileID: 11400000, guid: 8f671204243539d4aa12772ff4520d05, type: 2}
+  score: {fileID: 0}
   index: 0
   isMe: 0
   colors: {fileID: 11400000, guid: ee05aa2d8add3a048be351d354a58971, type: 2}
   speed: 5
   color: {r: 0, g: 0, b: 0, a: 0}
-  gridPositionX: 1
-  gridPositionZ: 1
-  aiStartTime: 0
-  aiScore: 0
-  aiMaxScore: 0
-  aicollisions: 0
-  aiDestinations: {x: 0, y: 0, z: 0, w: 0}
+  gridPosition: {x: 0, y: 0}
 --- !u!54 &4117929128961218303
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -459,79 +450,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3883434835471493997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3494361620522922729}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ea662703a6279441815b7509a17dca4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
-  previousScore: 0
---- !u!114 &4117929128961218298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3494361620522922729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BrainParameters:
-    VectorObservationSize: 6
-    NumStackedVectorObservations: 1
-    VectorActionSize: 0300000003000000
-    VectorActionDescriptions: []
-    VectorActionSpaceType: 0
-  m_Model: {fileID: 0}
-  m_InferenceDevice: 1
-  m_BehaviorType: 0
-  m_BehaviorName: MoveAgent
-  TeamId: 0
-  m_UseChildSensors: 1
---- !u!114 &4117929128961218299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3494361620522922729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 5
-  TakeActionsBetweenDecisions: 1
---- !u!114 &3494361620522922735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3494361620522922729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
-  m_SensorName: CameraSensor
-  m_Width: 128
-  m_Height: 128
-  m_Grayscale: 0
-  m_Compression: 1
 --- !u!1 &4377251106903205236
 GameObject:
   m_ObjectHideFlags: 0
