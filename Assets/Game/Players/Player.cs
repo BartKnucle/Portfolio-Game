@@ -189,7 +189,7 @@ public class Player : MonoBehaviour
     }
 
     private void refreshScore() {
-        GameObject.Find("txt" + name).GetComponent<Text>().text = aiScore.ToString();
+        //GameObject.Find("txt" + name).GetComponent<Text>().text = aiScore.ToString();
     }
 
     // Is the player ower of the brick

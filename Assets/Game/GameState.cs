@@ -25,4 +25,7 @@ public class GameState : GenericSingletonClass<MonoBehaviour>
     public void onGameCreated() {
       SceneManager.LoadScene("Game");
     }
+    public void onGameQuitted() {
+      SceneManager.LoadScene("Lobby");
+    }
 }
