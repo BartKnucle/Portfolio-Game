@@ -12,8 +12,8 @@ public class Barrier : MonoBehaviour
         switch (numBarrier)
         {
             case 0:
-                if (x < transform.root.GetChild(0).GetComponent<Map>().sizeX - 1) {
-                    Brick nextBrick = transform.root.GetChild(0).GetChild(x + 1).GetChild(z).GetComponent<Brick>();
+                if (x < Map.instance.transform.GetComponent<Map>().sizeX - 1) {
+                    Brick nextBrick = Map.instance.transform.GetChild(x + 1).GetChild(z).GetComponent<Brick>();
                     /*Brick nextBrick = GameObject.Find(
                         (x + 1) + ":" + (z)
                     ).GetComponent<Brick>();*/
@@ -30,7 +30,7 @@ public class Barrier : MonoBehaviour
                 break;
             case 1:
                 if (z > 0) {
-                    Brick nextBrick = transform.root.GetChild(0).GetChild(x).GetChild(z - 1).GetComponent<Brick>();
+                    Brick nextBrick = Map.instance.transform.GetChild(x).GetChild(z - 1).GetComponent<Brick>();
                     /*
                     Brick nextBrick = GameObject.Find(
                         (x) + ":" + (z - 1)
@@ -48,7 +48,7 @@ public class Barrier : MonoBehaviour
                 break;
             case 2:
                 if (x > 0) {
-                    Brick nextBrick = transform.root.GetChild(0).GetChild(x - 1).GetChild(z).GetComponent<Brick>();
+                    Brick nextBrick = Map.instance.transform.GetChild(x - 1).GetChild(z).GetComponent<Brick>();
                     /*Brick nextBrick = GameObject.Find(
                         (x - 1) + ":" + (z)
                     ).GetComponent<Brick>();*/
@@ -63,8 +63,8 @@ public class Barrier : MonoBehaviour
                 }
                 break;
             case 3:
-                if (z < transform.root.GetChild(0).GetComponent<Map>().sizeZ - 1) {
-                    Brick nextBrick = transform.root.GetChild(0).GetChild(x).GetChild(z + 1).GetComponent<Brick>();
+                if (z < Map.instance.transform.GetComponent<Map>().sizeZ - 1) {
+                    Brick nextBrick = Map.instance.transform.GetChild(x).GetChild(z + 1).GetComponent<Brick>();
 
                     /*Brick nextBrick = GameObject.Find(
                         (x) + ":" + (z + 1)
