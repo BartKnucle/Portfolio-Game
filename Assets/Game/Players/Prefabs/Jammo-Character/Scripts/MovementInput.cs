@@ -50,11 +50,13 @@ public class MovementInput : MonoBehaviour {
 
 	void InputMagnitude() {
 		//Calculate Input Vectors
-		InputX = Input.GetAxis ("Horizontal");
-		InputZ = Input.GetAxis ("Vertical");
+    if (transform.parent.GetComponent<Player>().isMe) {
+      InputX = Input.GetAxis ("Horizontal");
+      InputZ = Input.GetAxis ("Vertical");
 
-		Speed = new Vector2(InputX, InputZ).sqrMagnitude;
+      Speed = new Vector2(InputX, InputZ).sqrMagnitude;
 
-		anim.SetFloat ("Blend", Speed, StopAnimTime, Time.deltaTime);
+      anim.SetFloat ("Blend", Speed, StopAnimTime, Time.deltaTime);
+    }
 	}
 }

@@ -1052,7 +1052,7 @@ PrefabInstance:
     - target: {fileID: 3541754002163558908, guid: bd6ee82c5e06b3f4f86113cbf8261ae1,
         type: 3}
       propertyPath: m_Name
-      value: Jammo_Player
+      value: model
       objectReference: {fileID: 0}
     - target: {fileID: 4228262177977166944, guid: bd6ee82c5e06b3f4f86113cbf8261ae1,
         type: 3}

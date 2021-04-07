@@ -121,19 +121,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    /*public void sendId() {
-        // Notify the server to replace the old id by the new one;
-        Network.instance.send("api/player/connect/" + id);
-    }*/
-
     // Is the player ower of the brick
-    public float isMine(int x, int z) {
+    /*public float isMine(int x, int z) {
         if (Map.instance.getItem(x, z).GetComponent<Brick>().owner == transform.GetComponent<Player>()) {
             return 1;
         } else {
             return 0;
         }
-    }
+    }*/
 
     public void reset() {
         //Map map = transform.root.GetChild(0).GetComponent<Map>();
