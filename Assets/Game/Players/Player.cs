@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public NetIntVariable score;
     public NetFloatVariable xPosition;
     public NetFloatVariable zPosition;
-    private int netPositionInterval = 1000;
+    private int netPositionInterval = 100;
     private float lastPositionSend = 0;
     public int index = 0;
     public bool isMe = false;
