@@ -27,5 +27,11 @@ namespace CrazyGoat.Variables
         override public void setFromString(string value) {
           SetValue(value);
         }
+        public override void OnEnable ()
+        {
+          if (reset) {
+            this.value = null;
+          }
+        }
     }
 }

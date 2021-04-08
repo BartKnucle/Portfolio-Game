@@ -86,47 +86,50 @@ namespace CrazyGoat.Network {
         
         services.FindAll(service => service.api == msgService)
           .ForEach(service => {
-            numServices += 1;
-            service.requests.FindAll(request => request.ServerRequestName == msgRequest)
-              .ForEach(request => {
-                numRequests += 1;
+            if (service._id == null || service._id.Value == null || service._id.Value == msgObject["data"]["_id"])
+            {
+              numServices += 1;
+              service.requests.FindAll(request => request.ServerRequestName == msgRequest)
+                .ForEach(request => {
+                  numRequests += 1;
 
-                // Set the float variables
-                request.floatVariables
-                  .ForEach(variable => {
-                    variable.Value = msgObject["data"][variable.DatabaseFieldName];
-                  });
+                  // Set the float variables
+                  request.floatVariables
+                    .ForEach(variable => {
+                      variable.Value = msgObject["data"][variable.DatabaseFieldName];
+                    });
 
 
-                // Set the int variables
-                request.intVariables
-                  .ForEach(variable => {
-                    variable.Value = msgObject["data"][variable.DatabaseFieldName];
-                  });
+                  // Set the int variables
+                  request.intVariables
+                    .ForEach(variable => {
+                      variable.Value = msgObject["data"][variable.DatabaseFieldName];
+                    });
 
-                // Set the string variables
-                request.stringVariables
-                  .ForEach(variable => {
-                    variable.Value = msgObject["data"][variable.DatabaseFieldName];
-                  });
+                  // Set the string variables
+                  request.stringVariables
+                    .ForEach(variable => {
+                      variable.Value = msgObject["data"][variable.DatabaseFieldName];
+                    });
 
-                // Set the string list variables
-                request.stringListVariables
-                  .ForEach(List => {
-                    for (int i = 0; i < List.Value.Count; i++)
-                    {
-                      List.Value[i] = msgObject["data"][List.DatabaseFieldName][i][List.DatabaseSubObjectField]; 
-                    }
-                  });
+                  // Set the string list variables
+                  request.stringListVariables
+                    .ForEach(List => {
+                      for (int i = 0; i < List.Value.Count; i++)
+                      {
+                        List.Value[i] = msgObject["data"][List.DatabaseFieldName][i][List.DatabaseSubObjectField]; 
+                      }
+                    });
 
-                // Set the bool variables
-                request.boolVariables
-                  .ForEach(variable => {
-                    variable.Value = msgObject["data"][variable.DatabaseFieldName];
-                  });
+                  // Set the bool variables
+                  request.boolVariables
+                    .ForEach(variable => {
+                      variable.Value = msgObject["data"][variable.DatabaseFieldName];
+                    });
 
-                jobs.Enqueue(request.onReception.Raise);
-              });
+                  jobs.Enqueue(request.onReception.Raise);
+                });
+            }
           });
 
           string countSvc = $" Mathing services count: {numServices}";

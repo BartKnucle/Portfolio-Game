@@ -29,5 +29,9 @@ namespace CrazyGoat.Variables
         override public void setFromString(string value) {
           SetValue(Convert.ToSingle(value));
         }
+        public override void OnEnable ()
+        {
+            Debug.Log("Awake");
+        }
     }
 }

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Game _id
   m_EditorClassIdentifier: 
   DeveloperDescription: Current game ID
+  reset: 1
   DatabaseFieldName: _id

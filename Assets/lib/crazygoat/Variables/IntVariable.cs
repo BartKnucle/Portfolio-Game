@@ -29,5 +29,9 @@ namespace CrazyGoat.Variables
         override public void setFromString(string value) {
           SetValue(Convert.ToInt16(value));
         }
+
+        public override void OnEnable ()
+        {
+        }
     }
 }

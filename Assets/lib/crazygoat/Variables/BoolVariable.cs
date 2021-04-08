@@ -29,5 +29,9 @@ namespace CrazyGoat.Variables
         override public void setFromString(string value) {
           SetValue(Convert.ToBoolean(value));
         }
+
+        public override void OnEnable ()
+        {
+        }
     }
 }

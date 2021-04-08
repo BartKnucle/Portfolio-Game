@@ -79,12 +79,12 @@ public class Player : MonoBehaviour
           // Setting the update for the network playes
           onNetPlayerUpdate = ScriptableObject.CreateInstance<GameEvent>();
           updateRequest.onReception = onNetPlayerUpdate;
+
+          // Add the listener
           onNetPlayerUpdateListener = gameObject.AddComponent<GameEventListener>();
           onNetPlayerUpdateListener.Event = onNetPlayerUpdate;
-
-          //UnityAction updatePosition;
-          //updatePosition += setNetworkPosition;
           onNetPlayerUpdateListener.Response.AddListener(setNetworkPosition);
+          onNetPlayerUpdate.RegisterListener(onNetPlayerUpdateListener);
 
           updateRequest.intVariables.Add(score);
           updateRequest.floatVariables.Add(xPosition);
