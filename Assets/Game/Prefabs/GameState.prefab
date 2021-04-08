@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2060536865018484411}
   - component: {fileID: 2060536865018484410}
   - component: {fileID: 2060536865018484408}
+  - component: {fileID: 720161404}
+  - component: {fileID: 720161405}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -67,6 +69,62 @@ MonoBehaviour:
       - m_Target: {fileID: 2060536865018484410}
         m_TargetAssemblyTypeName: GameState, Assembly-CSharp
         m_MethodName: onConnectionChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &720161404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060536865018484413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e839e4c12473014b9b3d3faccc0f61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: c0d9ca358c4be01428e0ded534f20b06, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2060536865018484410}
+        m_TargetAssemblyTypeName: GameState, Assembly-CSharp
+        m_MethodName: onGameCreated
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &720161405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060536865018484413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e839e4c12473014b9b3d3faccc0f61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: bc64fdd0fa7e82d49a71839efb1339d1, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2060536865018484410}
+        m_TargetAssemblyTypeName: GameState, Assembly-CSharp
+        m_MethodName: onGameQuitted
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

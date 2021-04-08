@@ -11,11 +11,11 @@ namespace CrazyGoat.Network {
     {
       public string ServerRequestName;
       public Service service;
-      public List<FloatVariable> floatVariables;
-      public List<IntVariable> intVariables;
-      public List<StringVariable> stringVariables;
-      public List<StringList> stringListVariables;
-      public List<BoolVariable> boolVariables;
+      public List<FloatVariable> floatVariables = new List<FloatVariable>();
+      public List<IntVariable> intVariables = new List<IntVariable>();
+      public List<StringVariable> stringVariables = new List<StringVariable>();
+      public List<StringList> stringListVariables = new List<StringList>();
+      public List<BoolVariable> boolVariables = new List<BoolVariable>();
 
       public GameEvent onReception;
 

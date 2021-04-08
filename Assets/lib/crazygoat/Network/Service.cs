@@ -9,7 +9,7 @@ namespace CrazyGoat.Network {
     {
       public string api;
       public StringVariable _id;
-      public List<Request> requests;
+      public List<Request> requests = new List<Request>();
     }
 }
 

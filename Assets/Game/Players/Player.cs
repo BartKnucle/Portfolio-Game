@@ -1,25 +1,36 @@
 ﻿using UnityEngine;
+using CrazyGoat.Events;
 using CrazyGoat.Variables;
 using CrazyGoat.Colors;
+using CrazyGoat.Network;
 using CrazyGoat.Network.Variables;
+using UnityEngine.Events;
+
 
 public class Player : MonoBehaviour
 {
     public StringList players;
+    public Service service;
+    public Request updateRequest;
+    public GameEvent onNetPlayerUpdate;
+    public GameEventListener onNetPlayerUpdateListener;
     public StringVariable UserId;
+    public StringVariable playerId;
     public NetIntVariable score;
+    public NetFloatVariable xPosition;
+    public NetFloatVariable zPosition;
+    private int netPositionInterval = 1000;
+    private float lastPositionSend = 0;
     public int index = 0;
     public bool isMe = false;
     public ColorList colors;
     public int speed = 4;
-
     public Color color;
-
     public Vector2 gridPosition;
 
     void Awake() {
-      score = ScriptableObject.CreateInstance<NetIntVariable>();
-      score.Value = 0;
+      // Set objects names
+      
     }
 
     void Start() {
@@ -30,9 +41,59 @@ public class Player : MonoBehaviour
             }
         }
 
+        playerId = ScriptableObject.CreateInstance<StringVariable>();
+        playerId.Value = name;
+
+        // Setting the service bound to the player
+        service = ScriptableObject.CreateInstance<Service>();
+        service._id = playerId;
+        service.api = "/api/players";
+        
+        // The network variables bound to the request, wih auto update or not
+        score = ScriptableObject.CreateInstance<NetIntVariable>();
+        score.service = service;
+        score.DatabaseFieldName = "score";
+        score.Value = 0;
+        
+
+        xPosition = ScriptableObject.CreateInstance<NetFloatVariable>();
+        xPosition.service = service;
+        xPosition.DatabaseFieldName = "x";
+        xPosition.Value = 0;
+
+        zPosition = ScriptableObject.CreateInstance<NetFloatVariable>();
+        zPosition.service = service;
+        zPosition.DatabaseFieldName = "z";
+        zPosition.Value = 0;
+
         if (name == UserId.Value) {
           isMe = true;
+          score.autoSend = true;
+          xPosition.autoSend = true;
+          zPosition.autoSend = true;
         } else {
+          updateRequest = ScriptableObject.CreateInstance<Request>();
+          updateRequest.ServerRequestName = "update";
+          updateRequest.service = service;
+          service.requests.Add(updateRequest);
+          // Setting the update for the network playes
+          onNetPlayerUpdate = ScriptableObject.CreateInstance<GameEvent>();
+          updateRequest.onReception = onNetPlayerUpdate;
+          onNetPlayerUpdateListener = gameObject.AddComponent<GameEventListener>();
+          onNetPlayerUpdateListener.Event = onNetPlayerUpdate;
+
+          //UnityAction updatePosition;
+          //updatePosition += setNetworkPosition;
+          onNetPlayerUpdateListener.Response.AddListener(setNetworkPosition);
+
+          updateRequest.intVariables.Add(score);
+          updateRequest.floatVariables.Add(xPosition);
+          updateRequest.floatVariables.Add(zPosition);
+
+          // Add the service to the network manager
+          Manager.Instance.services.Add(service);
+
+          //Deactivate camera
           transform.GetChild(2).gameObject.SetActive(false);
         }
 
@@ -43,33 +104,43 @@ public class Player : MonoBehaviour
     void Update() {
         gridPosition.x = (int)Mathf.Round(transform.localPosition.x);
         gridPosition.y = (int)Mathf.Round(transform.localPosition.z);
-        // Rotate
-        if (Input.GetKey("left")) {
-            //transform.Rotate(new Vector3(0, -Time.deltaTime * speed * 50, 0));
-            move("left");
-        }
-        if (Input.GetKey("right")) {
-            //transform.Rotate(new Vector3(0, Time.deltaTime * speed * 50, 0));
-            move("right");
+
+        if (isMe) {
+          // Rotate
+          if (Input.GetKey("left")) {
+              //transform.Rotate(new Vector3(0, -Time.deltaTime * speed * 50, 0));
+              move("left");
+          }
+          if (Input.GetKey("right")) {
+              //transform.Rotate(new Vector3(0, Time.deltaTime * speed * 50, 0));
+              move("right");
+          }
+          /*if (transform.localPosition.x < 0 || transform.localPosition.x > Map.instance.sizeX || transform.localPosition.z < 0 || transform.localPosition.z > Map.instance.sizeZ) {
+              reset();
+          }*/
         }
 
-        if (transform.localPosition.x < 0 || transform.localPosition.x > Map.instance.sizeX || transform.localPosition.z < 0 || transform.localPosition.z > Map.instance.sizeZ) {
-            reset();
-        }
+        lastPositionSend += Time.deltaTime;
+    }
+
+    public void setNetworkPosition(){
+      transform.localPosition = new Vector3(xPosition.Value, transform.position.y, zPosition.Value);
     }
 
     void FixedUpdate() {
-        // Supress the physics
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        //transform.rotation = Quaternion.Euler(new Vector3(0,transform.localRotation.y,0));
+        if (isMe) {
+          // Supress the physics
+          GetComponent<Rigidbody>().velocity = Vector3.zero;
+          GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+          //transform.rotation = Quaternion.Euler(new Vector3(0,transform.localRotation.y,0));
 
-        // Go forward / backward
-        if (Input.GetKey("up")) {
-            move("up");
-        }
-        if (Input.GetKey("down")) {
-            move("down");
+          // Go forward / backward
+          if (Input.GetKey("up")) {
+              move("up");
+          }
+          if (Input.GetKey("down")) {
+              move("down");
+          } 
         }
     }
 
@@ -100,6 +171,13 @@ public class Player : MonoBehaviour
 
           gridPosition.x = (int)Mathf.Round(transform.localPosition.x);
           gridPosition.y = (int)Mathf.Round(transform.localPosition.z);
+
+          // Delay between two position sending
+          if (lastPositionSend > netPositionInterval / 1000) {
+            xPosition.Value = transform.localPosition.x;
+            zPosition.Value = transform.localPosition.z;
+            lastPositionSend = 0;
+          }
         }
     }
 

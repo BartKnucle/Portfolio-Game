@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3528461922647806908}
   - component: {fileID: 3528461922647806909}
+  - component: {fileID: 115053451}
   m_Layer: 0
   m_Name: Network
   m_TagString: Untagged
@@ -43,23 +44,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153720f80efb25446878a6119562a95d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wsServer: {fileID: 11400000, guid: ef3236e2f2fef4544b0343c1799f4935, type: 2}
-  onConnectionStatusChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 44891bbf3e90f1d459d300812fbc49a3, type: 2}
-        m_TargetAssemblyTypeName: CrazyGoat.Events.GameEvent, Assembly-CSharp
-        m_MethodName: Raise
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  connectionStatus:
-    UseConstant: 0
-    ConstantValue: 
-    Variable: {fileID: 11400000, guid: 55487caa168dbaf459d1a7ffecdb3b9e, type: 2}
+  wsClient: {fileID: 11400000, guid: ce8b38d783a96ef4892c2b4973e27226, type: 2}
+  services:
+  - {fileID: 11400000, guid: d82de6464d61beb49b1aa87af868d353, type: 2}
+  - {fileID: 11400000, guid: 98871c158bccdbf4f9e49bf20b82f407, type: 2}
+  - {fileID: 11400000, guid: 2c360e2a2566d644db1afbe644a33aeb, type: 2}
+  onStatusChanged: {fileID: 11400000, guid: 44891bbf3e90f1d459d300812fbc49a3, type: 2}
+  status: {fileID: 11400000, guid: 55487caa168dbaf459d1a7ffecdb3b9e, type: 2}
+  startedAt: 0
+--- !u!114 &115053451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3528461922647806786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1ee64b70dfe0dc4da9dc37baa014ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

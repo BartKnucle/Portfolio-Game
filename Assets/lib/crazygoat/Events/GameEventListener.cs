@@ -12,6 +12,16 @@ namespace CrazyGoat.Events
         [Tooltip("Response to invoke when Event is raised.")]
         public UnityEvent Response;
 
+        void Awake() {
+          if (!Event) {
+            Event = ScriptableObject.CreateInstance<GameEvent>();
+          }
+
+          if (Response == null) {
+            Response = new UnityEvent();
+          }
+        }
+
         private void OnEnable()
         {
             Event.RegisterListener(this);
@@ -24,7 +34,7 @@ namespace CrazyGoat.Events
 
         public void OnEventRaised()
         {
-            Response.Invoke();
+          Response.Invoke();
         }
     }
 }
