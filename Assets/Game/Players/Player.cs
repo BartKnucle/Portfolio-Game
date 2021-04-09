@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public NetIntVariable score;
     public NetFloatVariable xPosition;
     public NetFloatVariable zPosition;
+    public NetFloatVariable yRotation;
     private int netPositionInterval = 100;
     private float lastPositionSend = 0;
     public int index = 0;
@@ -26,12 +27,6 @@ public class Player : MonoBehaviour
     public ColorList colors;
     public int speed = 4;
     public Color color;
-    public Vector2 gridPosition;
-
-    void Awake() {
-      // Set objects names
-      
-    }
 
     void Start() {
         for (int i = 0; i < players.Value.Count; i++)
@@ -54,23 +49,25 @@ public class Player : MonoBehaviour
         score.service = service;
         score.DatabaseFieldName = "score";
         score.Value = 0;
-        
 
         xPosition = ScriptableObject.CreateInstance<NetFloatVariable>();
         xPosition.service = service;
         xPosition.DatabaseFieldName = "x";
-        xPosition.Value = 0;
 
         zPosition = ScriptableObject.CreateInstance<NetFloatVariable>();
         zPosition.service = service;
         zPosition.DatabaseFieldName = "z";
-        zPosition.Value = 0;
+
+        yRotation = ScriptableObject.CreateInstance<NetFloatVariable>();
+        yRotation.service = service;
+        yRotation.DatabaseFieldName = "yRotation";
 
         if (name == UserId.Value) {
           isMe = true;
           score.autoSend = true;
           xPosition.autoSend = true;
           zPosition.autoSend = true;
+          yRotation.autoSend = true;
         } else {
           updateRequest = ScriptableObject.CreateInstance<Request>();
           updateRequest.ServerRequestName = "update";
@@ -89,6 +86,7 @@ public class Player : MonoBehaviour
           updateRequest.intVariables.Add(score);
           updateRequest.floatVariables.Add(xPosition);
           updateRequest.floatVariables.Add(zPosition);
+          updateRequest.floatVariables.Add(yRotation);
 
           // Add the service to the network manager
           Manager.Instance.services.Add(service);
@@ -98,42 +96,29 @@ public class Player : MonoBehaviour
         }
 
         color = colors.Value[index];
-
-        reset();
+        setColor();
     }
     void Update() {
-        gridPosition.x = (int)Mathf.Round(transform.localPosition.x);
-        gridPosition.y = (int)Mathf.Round(transform.localPosition.z);
 
         if (isMe) {
           // Rotate
           if (Input.GetKey("left")) {
-              //transform.Rotate(new Vector3(0, -Time.deltaTime * speed * 50, 0));
               move("left");
           }
           if (Input.GetKey("right")) {
-              //transform.Rotate(new Vector3(0, Time.deltaTime * speed * 50, 0));
               move("right");
           }
-          /*if (transform.localPosition.x < 0 || transform.localPosition.x > Map.instance.sizeX || transform.localPosition.z < 0 || transform.localPosition.z > Map.instance.sizeZ) {
-              reset();
-          }*/
         }
 
         lastPositionSend += Time.deltaTime;
     }
 
-    public void setNetworkPosition(){
-      transform.localPosition = new Vector3(xPosition.Value, transform.position.y, zPosition.Value);
-    }
-
     void FixedUpdate() {
-        if (isMe) {
-          // Supress the physics
-          GetComponent<Rigidbody>().velocity = Vector3.zero;
-          GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-          //transform.rotation = Quaternion.Euler(new Vector3(0,transform.localRotation.y,0));
+        // Supress the physics
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 
+        if (isMe) {
           // Go forward / backward
           if (Input.GetKey("up")) {
               move("up");
@@ -144,7 +129,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void  move(string key) {
+    public void setNetworkPosition(){
+      transform.localPosition = new Vector3(xPosition.Value, transform.position.y, zPosition.Value);
+      transform.eulerAngles = new Vector3(
+        transform.eulerAngles.x,
+        yRotation.Value,
+        transform.eulerAngles.z
+      );
+    }
+
+    public void move(string key) {
         if (isMe) {
           switch (key)
           {
@@ -154,28 +148,23 @@ public class Player : MonoBehaviour
                   );
                   break;
               case "down":
-                  //GetComponent<Rigidbody>().velocity = -transform.forward * speed * 30 * Time.deltaTime;
                   GetComponent<Rigidbody>().MovePosition(
                       transform.position - transform.forward * speed * Time.deltaTime
                   );
                   break;
               case "left":
-                  //GetComponent<Rigidbody>().AddTorque(-Vector3.up * Time.deltaTime * speed * 30);
                   transform.Rotate(new Vector3(0, -Time.deltaTime * speed * 40, 0));
                   break;
               case "right":
-                  //GetComponent<Rigidbody>().AddTorque(Vector3.up * Time.deltaTime * speed * 30);
                   transform.Rotate(new Vector3(0, Time.deltaTime * speed * 40, 0));
                   break;
           }
-
-          gridPosition.x = (int)Mathf.Round(transform.localPosition.x);
-          gridPosition.y = (int)Mathf.Round(transform.localPosition.z);
 
           // Delay between two position sending
           if (lastPositionSend > netPositionInterval / 1000) {
             xPosition.Value = transform.localPosition.x;
             zPosition.Value = transform.localPosition.z;
+            yRotation.Value = transform.rotation.eulerAngles.y;
             lastPositionSend = 0;
           }
         }
@@ -199,42 +188,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Is the player ower of the brick
-    /*public float isMine(int x, int z) {
-        if (Map.instance.getItem(x, z).GetComponent<Brick>().owner == transform.GetComponent<Player>()) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }*/
-
-    public void reset() {
-        //Map map = transform.root.GetChild(0).GetComponent<Map>();
-        switch (index)
-        {
-            case 0:
-                //mat = Resources.Load<Material>("Materials/One");
-                transform.localPosition = new Vector3(1, 0, 1);
-                transform.localRotation = Quaternion.Euler(Vector3.zero);
-                break;
-            case 1:
-                //mat = Resources.Load<Material>("Materials/Two");
-                transform.localPosition = new Vector3(Map.instance.sizeX - 2, 0, 1);
-                transform.localRotation = Quaternion.Euler(-Vector3.up * 90);
-                break;
-            case 2:
-                //mat = Resources.Load<Material>("Materials/Tree");
-                transform.localPosition = new Vector3(1, 0, Map.instance.sizeZ -2);
-                transform.localRotation = Quaternion.Euler(Vector3.up * 90);
-                break;
-            case 3:
-                //mat = Resources.Load<Material>("Materials/Four");
-                transform.localPosition = new Vector3(Map.instance.sizeX -2, 0, Map.instance.sizeZ -2);
-                transform.localRotation = Quaternion.Euler(-Vector3.up * 180);
-                break;
-            
-        }
-        
+    public void setColor() {  
         transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.SetColor("playerColor", color);
         transform.GetChild(1).GetChild(2).GetComponent<SkinnedMeshRenderer>().material.SetColor("playerColor", color);
         transform.GetChild(1).GetChild(12).GetComponent<SkinnedMeshRenderer>().material.SetColor("playerColor", color);
@@ -247,10 +201,6 @@ public class Player : MonoBehaviour
         transform.GetChild(1).GetChild(23).GetComponent<SkinnedMeshRenderer>().material.SetColor("playerColor", color);
         transform.GetChild(1).GetChild(24).GetComponent<SkinnedMeshRenderer>().material.SetColor("playerColor", color);
         transform.GetChild(1).GetChild(25).GetComponent<SkinnedMeshRenderer>().material.SetColor("playerColor", color);
-        
-        //aiScore = 0;
-        //aicollisions = 0;
-        //_checkDestinations();
     }
 }
 

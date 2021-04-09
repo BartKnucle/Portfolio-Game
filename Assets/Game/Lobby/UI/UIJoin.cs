@@ -21,6 +21,7 @@ public class UIJoin : MonoBehaviour
       txtNickname.RegisterCallback<InputEvent>(ev => setNickname());
       tglTeam.RegisterCallback<ChangeEvent<bool>>(ev => setTeam());
       btnJoin.RegisterCallback<ClickEvent>(ev => joinLobby.execute());
+      getNickname();
     }
 
     private void setNickname() {
